@@ -303,7 +303,7 @@ button {
 .card {
   position: relative;
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: 25px;
   width: 500px;
   height: 300px;
   margin: 0 auto;
