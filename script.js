@@ -227,6 +227,7 @@ function applyBackImageSize(sizeValue) {
   }
 }
 
+
 /*.     */
 function updateCardSidesUI() {
   const isDouble = cardSidesMode.value === "double";
@@ -315,7 +316,6 @@ updateCardSidesUI();
 updateImageControlsUI();
 updateBackImageControlsUI();
 initDefaultColorsFromRoot();
-
 
 /*.     */
 function hexToRgb(hex) {
