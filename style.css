@@ -636,11 +636,6 @@ button {
     padding: 12px;
   }
 
- /* .gift-text {
-    font-size: clamp(16px, 4.2vw, 18px);
-    margin-bottom: clamp(10px, 3vw, 14px);
-  }*/
-
   h1 {
     font-size: 26px;
     line-height: 1.15;
@@ -686,8 +681,8 @@ button {
 
 
   .gift-sheet {
-    width: 42.7%;
-    aspect-ratio: 128 / 76;
+    width: 43.4%;
+    aspect-ratio: 5 / 3;
     height: auto;
     bottom: 75%;
     border-radius: clamp(4px, 1.4vw, 6px);
