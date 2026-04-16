@@ -1,0 +1,825 @@
+* {
+  box-sizing: border-box;
+}
+
+/* начальные значения */
+:root {
+  --card-bg: #c9d4ff;
+  --env-main: #8dacff;
+  --card-text: #506bff;
+  --card-line: rgba(255, 255, 255, 0);
+  --card-font: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
+
+.screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 520px;
+  margin: 0 auto;
+  /*padding: 24px;*/
+}
+
+.hidden {
+  display: none !important;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+input,
+textarea,
+select,
+button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.color-field input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 100%;
+  height: 44px;
+
+  padding: 0; /* важно */
+  cursor: pointer;
+}
+
+/* убираем лишние отступы */
+.color-field input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+/* сам цвет внутри */
+.color-field input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+
+/* Firefox */
+.color-field input[type="color"]::-moz-color-swatch {
+  border: none;
+}
+
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+button {
+  cursor: pointer;
+  margin-top: 24px;
+}
+
+.gift-text {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 24px;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+
+/* Сцена с конвертом */
+.scene {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 340px;
+  overflow: visible;
+
+  perspective: 1400px;
+}
+
+.envelope {
+  position: relative;
+  width: 460px;
+  height: 260px;
+
+  transform-style: preserve-3d;
+  overflow: visible;
+}
+
+/* Корпус конверта */
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  bottom: 0;
+  width: 100%;
+  height: 260px;
+  background: var(--env-main);
+  z-index: 1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+/* Карта внутри конверта */
+.gift-sheet {
+  position: absolute;
+  left: 50%;
+  bottom: 194px;
+  width: 200px;
+  height: 120px;
+  transform: translateX(-50%) translateY(175px) scale(1);
+  border-radius: 10px;
+  background: var(--card-bg); 
+
+  z-index: 2;
+  transition:
+    transform 1.8s cubic-bezier(.22, 1, .36, 1),
+    box-shadow 1.8s cubic-bezier(.22, 1, .36, 1),
+    opacity 0.9s ease;
+  overflow: hidden;
+}
+
+.envelope-front {
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  width: 100%;
+  height: 250px;
+  background:var(--env-main); 
+  clip-path: polygon(
+    0 0,
+    50% 48%,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+  z-index: 4;
+}
+
+/* Тень */
+.envelope-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 144px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.16),
+    rgba(0, 0, 0, 0.08),
+    transparent
+  );
+  clip-path: polygon(0 0, 100% 0, 50% 84%);
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+    transition: 
+      opacity 1.4s ease,
+      transform 1.4s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Клапан */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 144px;
+
+  background: var(--env-main);
+  clip-path: polygon(0 0, 100% 0, 50% 84%);
+
+  transform-origin: top center;
+  transform: translateY(0) scaleY(1);
+  transition: 
+    opacity 1.4s ease,
+    transform 1.4s cubic-bezier(.22, 1, .36, 1);
+  z-index: 3;
+  backface-visibility: hidden;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.16),
+    rgba(0, 0, 0, 0.08),
+    transparent
+  );
+}
+
+.envelope-flap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, 100% 0, 50% 84%);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+    background: var(--env-main);
+
+}
+
+.envelope-flap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--env-main);
+
+    background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.16),
+    rgba(0, 0, 0, 0.08),
+    transparent
+  );
+  clip-path: polygon(0 0, 100% 0, 50% 84%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+/* ЭТАП 1 - КЛАПАН ОТКРЫЛСЯ */
+.envelope.flap-open .envelope-flap {
+  transform: translateY(0) scaleY(-1);
+  z-index: 1;
+}
+
+.envelope.flap-open .envelope-shadow {
+  opacity: 1;
+}
+
+/* ЭТАП 2 - КАРТА ВЫШЛА ИЗ КОНВЕРТА */
+.envelope.card-out .gift-sheet {
+  z-index: 4; 
+  transform: translateX(-50%) translateY(-18px) scale(1);
+  transition-delay: 0s;
+}
+
+/* ЭТАП 3 - КАРТА ПОШЛА К ЦЕНТРУ */
+.envelope.card-zoom .gift-sheet {
+  z-index: 5;
+  transform: translateX(-50%) translateY(145px) scale(2.5); /*scale - пропорционально увеличивает карту*/
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.10);
+  transition-delay: 0s;
+}
+
+.envelope.fade-out .envelope-back,
+.envelope.fade-out .envelope-front,
+.envelope.fade-out .envelope-shadow,
+.envelope.fade-out .envelope-flap, 
+.envelope.fade-out .envelope-flap::after,
+.envelope.fade-out .envelope-flap::before {
+  opacity: 0;
+}
+
+/* по отдельности будем убирать части конверта */
+.envelope-back,
+.envelope-front,
+.envelope-shadow,
+.envelope-flap,
+.envelope-flap::after,
+.envelope-flap::before {
+  transition:
+    opacity 1.8s ease,
+    transform 1.8s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Финальная карта */
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  width: 500px;
+  height: 300px;
+  margin: 0 auto;
+  margin-top: 54px;
+  padding: 0;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  background: var(--card-bg);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+.card-logo-wrap {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.card-logo-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.logo-top-left {
+  top: 35px;
+  left: 35px;
+}
+
+.logo-top-right {
+  top: 35px;
+  right: 35px;
+}
+
+
+/*размер изображения*/
+.card-content.shift-right {
+  padding-left: 150px;
+}
+
+.card-content.shift-left {
+  padding-right: 150px;
+}
+
+.card-content.shift-down {
+  padding-top: 95px;
+}
+
+.card.has-user-background {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.card-logo-wrap.logo-small {
+  width: 62px;
+  height: 62px;
+}
+
+.card-logo-wrap.logo-medium {
+  width: 82px;
+  height: 82px;
+}
+
+.card-logo-wrap.logo-large {
+  width: 96px;
+  height: 96px;
+}
+
+.card-user-bg.bg-small {
+  background-size: contain;
+}
+
+.card-user-bg.bg-medium {
+  background-size: cover;
+}
+
+.card-user-bg.bg-large {
+  background-size: 130%;
+}
+
+.card.has-user-background .card-content,
+.card.has-user-background .card-logo-wrap,
+.card.has-user-background .card-overlay {
+  position: relative;
+  z-index: 2;
+}
+
+/*заполнение карты*/
+.card-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding: 24px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.card-type {
+  margin: 0 0 24px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--card-text);
+  position: relative;
+  font-family: var(--card-font);
+}
+
+.card-type::before,
+.card-type::after {
+  content: "";
+  display: inline-block;
+  width: 44px;
+  height: 1px;
+  vertical-align: middle;
+  margin: 0 14px;
+  background: var(--card-line);
+}
+
+.title {
+  margin: 0 0 20px;
+  font-size: 24px;
+  line-height: 1.12;
+  font-weight: 600;
+  color: var(--card-text);
+  font-family: var(--card-font);
+}
+
+
+.message {
+  margin: 0 0 24px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--card-text);
+  font-family: var(--card-font);
+}
+
+#fontPreviewText {
+  margin-top: -4px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #474747;
+}
+
+.amount-wrap {
+  margin-top: 0;
+  padding-top: 18px;
+  width: 100%;
+  max-width: 220px;
+  border-top: none;
+}
+
+.amount-wrap.with-divider {
+  padding-top: 18px;
+  border-top: 1px solid var(--card-line);
+}
+
+.amount {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.1;
+  font-weight: 500;
+  color: var(--card-text);
+  font-family: var(--card-font);
+}
+
+.extra-info {
+  margin-top: auto;
+  width: 100%;
+  padding-top: 16px;
+}
+
+.address,
+.contacts {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--card-text);
+  opacity: 0.9;
+  font-family: var(--card-font);
+}
+
+.contacts {
+  margin-top: 6px;
+}
+
+/* result*/
+.result-actions {
+  width: 500px;
+  margin: 18px auto 0;
+  display: flex;
+  gap: 12px;
+}
+
+.result-actions button {
+  flex: 1;
+  margin: 0;
+  margin-top: 5px;
+}
+
+
+/*линии*/
+.title.with-divider {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--card-line);
+}
+
+.amount-wrap.with-divider {
+  padding-top: 18px;
+  border-top: 1px solid var(--card-line);
+}
+
+.range-wrap {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+  margin-top: 35px;
+}
+
+
+/*Прозрачность фронт*/
+#imageOpacity {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  accent-color: #6ea8ff;
+  box-sizing: border-box;
+}
+
+#imageOpacityValue {
+  position: absolute;
+  top: -24px;
+  left: 100%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: #555;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/*Прозрачность бэк*/
+#backImageOpacity {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  accent-color: #6ea8ff;
+  box-sizing: border-box;
+}
+
+#backImageOpacityValue {
+  position: absolute;
+  top: -24px;
+  left: 100%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: #555;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+
+#logoHint {
+  margin-top: -4px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #666;
+}
+
+#templateHint {
+  margin-top: -4px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #666;
+}
+
+#backSideEditor h3 {
+  margin-top: 8px;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.card-user-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/*Разделитель сторон*/
+.side-editor {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid #e3e3e3;
+  border-radius: 14px;
+  background: #fafafa;
+}
+
+.side-title {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/*адаптивные размеры*/
+@media (max-width: 430px) {
+  .screen {
+    max-width: 100%;
+    padding: clamp(12px, 4vw, 16px);
+    min-height: 100dvh;
+    padding: 12px;
+  }
+
+ /* .gift-text {
+    font-size: clamp(16px, 4.2vw, 18px);
+    margin-bottom: clamp(10px, 3vw, 14px);
+  }*/
+
+  h1 {
+    font-size: 26px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .color-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .gift-text {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+
+  .scene {
+    min-height: 210px;
+    margin-top: 8px;
+  }
+
+
+  .envelope {
+    width: min(82vw, 300px);
+    aspect-ratio: 300 / 170;
+    height: auto;
+  }
+
+  .envelope-back {
+    height: 100%;
+  }
+
+  .envelope-front {
+    height: 96%;
+    bottom: 3.5%;
+  }
+
+  .envelope-flap,
+  .envelope-shadow {
+    height: 55%;
+  }
+
+
+  .gift-sheet {
+    width: 42.7%;
+    aspect-ratio: 128 / 76;
+    height: auto;
+    bottom: 75%;
+    border-radius: clamp(4px, 1.4vw, 6px);
+    transform: translateX(-50%) translateY(118px) scale(1);
+  }
+
+  .envelope.card-out .gift-sheet {
+    transform: translateX(-50%) translateY(-2px) scale(1);
+  }
+
+  .envelope.card-zoom .gift-sheet {
+    transform: translateX(-50%) translateY(98px) scale(3);
+  }
+
+  #openBtn {
+    margin-top: 28px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 5 / 3;
+    height: auto;
+    margin-top: 98px;
+    border-radius: 18px;
+  }
+
+  .card-user-bg {
+    border-radius: 18px;
+  }
+
+  .card-content {
+    padding: 18px 16px 16px;
+  }
+
+  .card-content.shift-right {
+    padding-left: 92px;
+  }
+
+  .card-content.shift-left {
+    padding-right: 92px;
+  }
+
+  .card-logo-wrap {
+    width: 58px;
+    height: 58px;
+  }
+
+  .card-logo-wrap.logo-small {
+    width: 44px;
+    height: 44px;
+  }
+
+  .card-logo-wrap.logo-medium {
+    width: 58px;
+    height: 58px;
+  }
+
+  .card-logo-wrap.logo-large {
+    width: 72px;
+    height: 72px;
+  }
+
+  .logo-top-left {
+    top: 10px;
+    left: 10px;
+  }
+
+  .logo-top-right {
+    top: 10px;
+    right: 10px;
+  }
+
+  .card-type {
+    font-size: 11px;
+    margin: 0 0 14px;
+    letter-spacing: 0.08em;
+  }
+
+  .card-type::before,
+  .card-type::after {
+    width: 22px;
+    margin: 0 8px;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 1.18;
+    margin: 0 0 12px;
+    word-break: break-word;
+  }
+
+  .message {
+    font-size: 12px;
+    line-height: 1.35;
+    margin: 0 0 14px;
+    word-break: break-word;
+  }
+
+  .amount-wrap {
+    max-width: 160px;
+    padding-top: 12px;
+  }
+
+  .amount {
+    font-size: 18px;
+  }
+
+  .extra-info {
+    padding-top: 10px;
+  }
+
+  .address,
+  .contacts {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  .result-actions {
+    width: 100%;
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .result-actions button {
+    margin: 0;
+    min-height: 52px;
+    padding: 10px 8px;
+    font-size: 14px;
+    line-height: 1.2;
+    white-space: normal;
+  }
+}

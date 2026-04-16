@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gift Card</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <section id="createScreen" class="screen">
+    <h1>Создайте подарок</h1>
+
+    <label for="cardSidesMode">Формат</label>
+    <select id="cardSidesMode">
+      <option value="single" selected>Односторонний</option>
+      <option value="double">Двусторонний</option>
+    </select>
+
+    <label for="giftType">Тип подарка</label>
+    <select id="giftType">
+      <option value="">—</option>
+      <option value="card">Подарочная карта</option>
+      <option value="certificate">Сертификат</option>
+    </select>
+
+    <div class="color-grid">
+      <div class="color-field">
+        <label for="cardColorInput">Цвет карты/сертификата</label>
+        <input id="cardColorInput" type="color">
+      </div>
+
+      <div class="color-field">
+        <label for="envelopeColorInput">Цвет конверта</label>
+        <input id="envelopeColorInput" type="color">
+      </div>
+    </div>
+
+    <div class="color-grid">
+      <div class="color-field">
+        <label for="textColorInput">Цвет текста</label>
+        <input id="textColorInput" type="color">
+      </div>
+
+      <div class="font-field">
+        <label for="fontSelect">Шрифт</label>
+        <select id="fontSelect">
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="'Georgia', serif">Georgia</option>
+          <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+          <option value="'Courier New', monospace">Courier New</option>
+        </select>
+        <p id="fontPreviewText">*Пример шрифта</p>
+      </div>
+    </div>
+
+    <!--первая сторона-->
+<div id="frontSideEditor" class="side-editor">
+  <h3 class="side-title">Первая сторона</h3>
+
+  <div class="side-text-settings" id="frontTextSettings">
+    <label for="titleInput">Заголовок</label>
+    <input id="titleInput" type="text" placeholder="Например: Акция">
+
+    <label for="messageInput">Текст</label>
+    <textarea id="messageInput" placeholder="Введите текст"></textarea>
+
+    <label for="amountInput">Сумма</label>
+    <input id="amountInput" type="text" placeholder="Например: 5000 ₽">
+
+    <label for="addressInput">Адрес</label>
+    <input id="addressInput" type="text" placeholder="Например: ул. Примерная, 10">
+
+    <label for="contactsInput">Контактные данные</label>
+    <input id="contactsInput" type="text" placeholder="Например: +7 900 000-00-00 / site.ru">
+  </div>
+
+  <div class="side-image-settings" id="frontImageSettings">
+    <label for="logoInput">Логотип или изображение</label>
+    <input id="logoInput" type="file" accept=".png,.jpg,.jpeg,.webp,.svg,image/png,image/jpeg,image/webp,image/svg+xml">
+
+    <p id="logoHint" class="hidden">
+      *Чтобы карта или сертификат выглядели гармоничнее, подбирайте цвет под логотип или используйте логотип без фона.
+    </p>
+
+    <div id="imageOpacityWrap">
+      <label for="imageOpacity">Прозрачность изображения</label>
+      <div class="range-wrap">
+        <input id="imageOpacity" type="range" min="0" max="100" value="100">
+        <span id="imageOpacityValue">100%</span>
+      </div>
+    </div>
+
+    <div id="imageModeWrap">
+      <label for="imageMode">Режим изображения</label>
+      <select id="imageMode">
+        <option value="logo" selected>Логотип</option>
+        <option value="background">Фон</option>
+      </select>
+    </div>
+
+    <div id="logoPositionWrap">
+      <label for="logoPosition">Позиция логотипа</label>
+      <select id="logoPosition">
+        <option value="top-left">Слева сверху</option>
+        <option value="top-right" selected>Справа сверху</option>
+      </select>
+    </div>
+
+    <div id="imageSizeWrap">
+      <label for="imageSize">Размер изображения</label>
+      <select id="imageSize">
+        <option value="small">Маленький</option>
+        <option value="medium" selected>Средний</option>
+        <option value="large">Большой</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+    <!--вторая сторона-->
+<div id="backSideEditor" class="side-editor hidden">
+  <h3>Вторая сторона</h3>
+
+  <div class="side-text-settings" id="backTextSettings">
+    <label for="backTitleInput">Заголовок</label>
+    <input id="backTitleInput" type="text" placeholder="Например: Акция">
+
+    <label for="backMessageInput">Текст</label>
+    <textarea id="backMessageInput" placeholder="Введите текст"></textarea>
+
+    <label for="backAmountInput">Сумма</label>
+    <input id="backAmountInput" type="text" placeholder="Например: 5000 ₽">
+
+    <label for="backAddressInput">Адрес</label>
+    <input id="backAddressInput" type="text" placeholder="Например: ул. Примерная, 10">
+
+    <label for="backContactsInput">Контактные данные</label>
+    <input id="backContactsInput" type="text" placeholder="Например: +7 900 000-00-00 / site.ru">
+  </div>
+
+  <div class="side-image-settings" id="backImageSettings">
+    <label for="backLogoInput">Логотип или изображение</label>
+    <input id="backLogoInput" type="file" accept=".png,.jpg,.jpeg,.webp,.svg,image/png,image/jpeg,image/webp,image/svg+xml">
+
+    <p id="backLogoHint" class="hidden">
+      *Чтобы карта или сертификат выглядели гармоничнее, подбирайте цвет под логотип или используйте логотип без фона.
+    </p>
+
+    <div id="backImageOpacityWrap">
+      <label for="backImageOpacity">Прозрачность изображения</label>
+      <div class="range-wrap">
+        <input id="backImageOpacity" type="range" min="0" max="100" value="100">
+        <span id="backImageOpacityValue">100%</span>
+      </div>
+    </div>
+
+    <div id="backImageModeWrap">
+      <label for="backImageMode">Режим изображения</label>
+      <select id="backImageMode">
+        <option value="logo" selected>Логотип</option>
+        <option value="background">Фон</option>
+      </select>
+    </div>
+
+    <div id="backLogoPositionWrap">
+      <label for="backLogoPosition">Позиция логотипа</label>
+      <select id="backLogoPosition">
+        <option value="top-left">Слева сверху</option>
+        <option value="top-right" selected>Справа сверху</option>
+      </select>
+    </div>
+
+    <div id="backImageSizeWrap">
+      <label for="backImageSize">Размер изображения</label>
+      <select id="backImageSize">
+        <option value="small">Маленький</option>
+        <option value="medium" selected>Средний</option>
+        <option value="large">Большой</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+    <button id="continueBtn">Продолжить</button>
+  </section>
+
+  <!--конверт-->
+  <section id="envelopeScreen" class="screen hidden">
+    <p class="gift-text"></p> 
+
+    <div class="scene">
+      <div class="envelope" id="animatedEnvelope">
+        <div class="envelope-back"></div>
+        <div class="envelope-shadow"></div>
+        <div class="gift-sheet" id="giftSheet"></div>
+        <div class="envelope-front"></div>
+        <div class="envelope-flap"></div>
+      </div>
+    </div>
+
+    <button id="openBtn">Открыть</button>
+  </section>
+
+
+  <!--финальная первая сторона-->
+  <section id="frontCardScreen" class="screen hidden">
+    <div class="card-flip" id="cardFlip">
+      <div class="card-side card-front">
+        <div class="card" id="giftCard">
+          <div class="card-user-bg hidden" id="cardUserBg"></div>
+          <div class="card-overlay"></div>
+
+          <div class="card-logo-wrap logo-top-right hidden" id="cardLogoWrap">
+            <img id="cardLogo" alt="">
+          </div>
+
+          <div class="card-content">
+            <p id="resultType" class="card-type"></p>
+            <h2 class="title" id="resultTitle"></h2>
+            <p class="message" id="resultMessage"></p>
+
+            <div class="amount-wrap">
+              <p class="amount" id="resultAmount"></p>
+            </div>
+
+            <div class="extra-info">
+              <p class="address hidden" id="resultAddress"></p>
+              <p class="contacts hidden" id="resultContacts"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <button id="frontBackBtn" type="button">Назад</button>
+      <button id="frontToggleSideBtn" type="button">Вторая сторона</button>
+        <button id="frontShareBtn" type="button">Поделиться</button>
+      <button id="frontDownloadBtn" type="button">Скачать</button>
+    </div>
+  </section>
+
+
+  <!--финальная вторая сторона-->
+  <section id="backCardScreen" class="screen hidden">
+    <div class="card-flip" id="backCardFlip">
+      <div class="card-side card-front">
+        <div class="card" id="backGiftCard">
+          <div class="card-user-bg hidden" id="backCardUserBg"></div>
+          <div class="card-overlay"></div>
+
+          <div class="card-logo-wrap logo-top-right hidden" id="backCardLogoWrap">
+            <img id="backCardLogo" alt="">
+          </div>
+
+          <div class="card-content">
+            <p id="backResultType" class="card-type"></p>
+            <h2 class="title" id="backResultTitle"></h2>
+            <p class="message" id="backResultMessage"></p>
+
+            <div class="amount-wrap">
+              <p class="amount" id="backResultAmount"></p>
+            </div>
+
+            <div class="extra-info">
+              <p class="address hidden" id="backResultAddress"></p>
+              <p class="contacts hidden" id="backResultContacts"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <button id="backBackBtn" type="button">Назад</button>
+      <button id="backToggleSideBtn" type="button">Первая сторона</button>
+      <button id="backShareBtn" type="button">Поделиться</button>
+      <button id="backDownloadBtn" type="button">Скачать</button>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
