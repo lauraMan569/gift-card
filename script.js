@@ -27,6 +27,9 @@ const envelopeColorInput = document.getElementById("envelopeColorInput");
 const textColorInput = document.getElementById("textColorInput");
 const fontSelect = document.getElementById("fontSelect");
 
+const paletteCards = document.querySelectorAll(".palette-card");
+
+
 /*пример шрифтов*/
 const fontPreviewText = document.getElementById("fontPreviewText");
 
@@ -73,6 +76,8 @@ const cardSidesMode = document.getElementById("cardSidesMode");
 
 const backSideEditor = document.getElementById("backSideEditor");
 
+const backSideNotice = document.getElementById("backSideNotice");
+
 const backTitleInput = document.getElementById("backTitleInput");
 const backMessageInput = document.getElementById("backMessageInput");
 const backAmountInput = document.getElementById("backAmountInput");
@@ -107,17 +112,6 @@ const backCardLogo = document.getElementById("backCardLogo");
 const backCardLogoWrap = document.getElementById("backCardLogoWrap");
 const backCardUserBg = document.getElementById("backCardUserBg");
 
-/*let giftData = {
-  logoSrc: "",
-  logoPosition: "top-right",
-  imageMode: "logo",
-  imageOpacity: "100",
-  imageSize: "medium",
-  textColor: "#f8e9ef",
-  fontFamily: "Arial, sans-serif",
-  sidesMode: "single"
-};*/
-
 let giftData = {
   logoSrc: "",
   logoPosition: "top-right",
@@ -135,6 +129,184 @@ let giftData = {
   fontFamily: "Arial, sans-serif",
   sidesMode: "single"
 };
+
+
+
+function createBackgroundCards() {
+  const grid = document.querySelector(".bg-grid");
+
+  for (let i = 0; i < 24; i++) {
+    const el = document.createElement("div");
+
+    const hue = Math.floor(Math.random() * 360);
+
+    el.style.background = `
+      linear-gradient(135deg,
+        hsl(${hue}, 80%, 85%),
+        hsl(${hue}, 70%, 70%)
+      )
+    `;
+
+    el.className = "bg-card";
+    grid.appendChild(el);
+  }
+}
+createBackgroundCards();
+
+
+
+
+const previewScreen = document.getElementById("previewScreen");
+const startPreviewBtn = document.getElementById("startPreviewBtn");
+if (startPreviewBtn) {
+  startPreviewBtn.onclick = function () {
+    previewScreen.classList.add("hidden");
+    createScreen.classList.remove("hidden");
+  };
+}
+
+const hintBtn = document.getElementById("formatHint");
+const hintPopup = document.getElementById("formatHintPopup");
+
+if (hintBtn && hintPopup) {
+  hintBtn.onclick = (e) => {
+    e.stopPropagation();
+    hintPopup.classList.toggle("show");
+  };
+
+  document.addEventListener("click", () => {
+    hintPopup.classList.remove("show");
+  });
+}
+
+
+
+
+const previewExampleEnvelopes = document.querySelectorAll(".preview-example-envelope");
+previewExampleEnvelopes.forEach(item => {
+  item.addEventListener("click", () => {
+    const isOpen = item.classList.contains("open");
+
+    // закрыть остальные сразу
+    previewExampleEnvelopes.forEach(el => {
+      if (el !== item) {
+        el.classList.remove("opening", "open", "closing-card", "closing-flap");
+      }
+    });
+
+    if (!isOpen) {
+      // ОТКРЫТИЕ:
+      // 1. открываем клапан
+      item.classList.remove("closing-card", "closing-flap");
+      item.classList.add("opening");
+
+      // 2. потом выезжает карта
+      setTimeout(() => {
+        item.classList.add("open");
+      }, 320);
+
+    } else {
+      // ЗАКРЫТИЕ:
+      // 1. карта уезжает внутрь
+      item.classList.remove("open");
+      item.classList.add("closing-card");
+
+      // 2. потом закрывается клапан
+      setTimeout(() => {
+        item.classList.remove("opening");
+        item.classList.add("closing-flap");
+      }, 320);
+
+      // 3. очистка состояний
+      setTimeout(() => {
+        item.classList.remove("closing-card", "closing-flap");
+      }, 700);
+    }
+  });
+});
+
+
+
+const previewDemoCards = document.querySelectorAll(".mini-preview-card");
+function generatePreviewCardPalette(usedHues = []) {
+  let baseHue;
+  let attempts = 0;
+
+  do {
+    baseHue = Math.floor(Math.random() * 360);
+    attempts++;
+  } while (
+    usedHues.some(h => {
+      const diff = Math.abs(h - baseHue);
+      return diff < 40 || diff > 320;
+    }) &&
+    attempts < 100
+  );
+
+  const cardColor = hslToString(baseHue, 90, 82);
+  const backColor = hslToString(baseHue, 70, 68);
+  const flapColor = hslToString(baseHue, 70, 68);
+  const frontColor = hslToString(baseHue, 76, 76);
+  const textColor = hslToString(baseHue, 42, 30);
+
+  return {
+    baseHue,
+    cardColor,
+    backColor,
+    flapColor,
+    frontColor,
+    textColor
+  };
+}
+
+function fillPreviewDemoCards() {
+  const usedHues = [];
+
+  previewDemoCards.forEach(card => {
+    const wrap = card.closest(".preview-example-envelope");
+    const back = wrap.querySelector(".mini-preview-back");
+    const front = wrap.querySelector(".mini-preview-front");
+    const flap = wrap.querySelector(".mini-preview-flap");
+
+    const palette = generatePreviewCardPalette(usedHues);
+    usedHues.push(palette.baseHue);
+
+    card.style.background = palette.cardColor;
+    card.style.setProperty("--demo-line-color", palette.textColor);
+
+    back.style.background = palette.backColor;
+    flap.style.background = palette.flapColor;
+    front.style.background = palette.frontColor;
+  });
+}
+
+fillPreviewDemoCards();
+
+
+function updateBackSideNotice() {
+  const isDouble = cardSidesMode.value === "double";
+
+  const hasBackTitle = backTitleInput.value.trim() !== "";
+  const hasBackMessage = backMessageInput.value.trim() !== "";
+  const hasBackAmount = backAmountInput.value.trim() !== "";
+  const hasBackAddress = backAddressInput.value.trim() !== "";
+  const hasBackContacts = backContactsInput.value.trim() !== "";
+  const hasBackImage = Boolean(giftData.backLogoSrc);
+
+  const hasAnyBackContent =
+    hasBackTitle ||
+    hasBackMessage ||
+    hasBackAmount ||
+    hasBackAddress ||
+    hasBackContacts ||
+    hasBackImage;
+
+  if (isDouble && !hasAnyBackContent) {
+    backSideNotice.classList.remove("hidden");
+  } else {
+    backSideNotice.classList.add("hidden");
+  }
+}
 
 
 function updateFontPreview() {
@@ -301,6 +473,9 @@ function updateBackImageControlsUI() {
 }
 
 cardSidesMode.addEventListener("change", updateCardSidesUI);
+
+cardSidesMode.addEventListener("change", updateBackSideNotice);
+
 imageMode.addEventListener("change", updateImageControlsUI);
 backImageMode.addEventListener("change", updateBackImageControlsUI);
 
@@ -316,6 +491,9 @@ updateCardSidesUI();
 updateImageControlsUI();
 updateBackImageControlsUI();
 initDefaultColorsFromRoot();
+
+updateBackSideNotice();
+
 
 /*.     */
 function hexToRgb(hex) {
@@ -342,6 +520,7 @@ function mixWith(hex, target, amount) {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
+
 function getTextColor(hex) {
   const { r, g, b } = hexToRgb(hex);
   const brightness = (r * 299 + g * 587 + b * 114) / 1000;
@@ -351,8 +530,58 @@ function getTextColor(hex) {
 function applyTextStyles(textColor, fontFamily) {
   document.documentElement.style.setProperty("--card-text", textColor);
   document.documentElement.style.setProperty("--card-font", fontFamily);
-
 }
+
+
+function applyPalette(cardColor, envelopeColor, textColor) {
+  cardColorInput.value = cardColor;
+  envelopeColorInput.value = envelopeColor;
+  textColorInput.value = textColor;
+
+  giftData.cardColor = cardColor;
+  giftData.envelopeColor = envelopeColor;
+  giftData.textColor = textColor;
+
+  applyCustomColors(cardColor, envelopeColor);
+  applyTextStyles(textColor, giftData.fontFamily);
+}
+
+paletteCards.forEach(card => {
+  card.addEventListener("click", function () {
+    const cardColor = this.dataset.card;
+    const envelopeColor = this.dataset.envelope;
+    const textColor = this.dataset.text;
+
+    applyPalette(cardColor, envelopeColor, textColor);
+
+    paletteCards.forEach(item => item.classList.remove("active"));
+    this.classList.add("active");
+  });
+});
+
+function clearActivePalette() {
+  paletteCards.forEach(item => item.classList.remove("active"));
+}
+cardColorInput.addEventListener("input", clearActivePalette);
+envelopeColorInput.addEventListener("input", clearActivePalette);
+textColorInput.addEventListener("input", clearActivePalette);
+
+cardColorInput.addEventListener("input", () => {
+  giftData.cardColor = cardColorInput.value;
+  applyCustomColors(giftData.cardColor, giftData.envelopeColor || envelopeColorInput.value);
+});
+
+envelopeColorInput.addEventListener("input", () => {
+  giftData.envelopeColor = envelopeColorInput.value;
+  applyCustomColors(giftData.cardColor || cardColorInput.value, giftData.envelopeColor);
+});
+
+textColorInput.addEventListener("input", () => {
+  giftData.textColor = textColorInput.value;
+  applyTextStyles(giftData.textColor, giftData.fontFamily);
+});
+
+
 
 function applyCustomColors(cardHex, envelopeHex) {
   const textColor = getTextColor(cardHex);
@@ -363,6 +592,7 @@ function applyCustomColors(cardHex, envelopeHex) {
   applyTextStyles(giftData.textColor, giftData.fontFamily);
 }
 
+
 function formatAmount(value) {
   const raw = String(value).trim();
 
@@ -371,6 +601,70 @@ function formatAmount(value) {
   if (/^\d+$/.test(raw)) return raw + " ₽";
   return raw;
 }
+
+
+
+const autoPaletteBtn = document.getElementById("autoPaletteBtn");
+const randomColorsBtn = document.getElementById("randomColorsBtn");
+
+
+if (autoPaletteBtn) {
+  autoPaletteBtn.onclick = function () {
+    const cards = document.querySelectorAll(".palette-card");
+
+    if (cards.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    const randomCard = cards[randomIndex];
+
+    randomCard.click();
+  };
+}
+function getRandomColor(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+
+
+function hslToString(h, s, l) {
+  return `hsl(${h}, ${s}%, ${l}%)`;
+}
+
+
+function generatePalette() {
+  const baseHue = Math.floor(Math.random() * 360);
+
+  // карта (светлая)
+  const cardColor = hslToString(baseHue, 90, 80);
+
+  // конверт (тот же цвет, но насыщеннее и темнее)
+  const envelopeColor = hslToString(baseHue, 70, 55);
+
+  // текст (контрастный)
+  const textColor = hslToString(baseHue, 40, 30);
+
+  return {
+    cardColor,
+    envelopeColor,
+    textColor
+  };
+}
+randomColorsBtn.onclick = function () {
+
+  const palette = generatePalette();
+
+  applyPalette(
+    palette.cardColor,
+    palette.envelopeColor,
+    palette.textColor
+  );
+
+  // убрать выделение палитр
+  const cards = document.querySelectorAll(".palette-card");
+  cards.forEach(c => c.classList.remove("active"));
+};
+
+
 
 
 /*.     */
@@ -426,12 +720,14 @@ logoInput.addEventListener("change", function (event) {
   reader.readAsDataURL(file);
 });
 
+
 backLogoInput.addEventListener("change", function (event) {
   const file = event.target.files[0];
 
   if (!file) {
     giftData.backLogoSrc = "";
     updateBackImageControlsUI();
+    updateBackSideNotice();
     return;
   }
 
@@ -440,6 +736,7 @@ backLogoInput.addEventListener("change", function (event) {
   reader.onload = function (e) {
     giftData.backLogoSrc = e.target.result;
     updateBackImageControlsUI();
+    updateBackSideNotice();
   };
 
   reader.readAsDataURL(file);

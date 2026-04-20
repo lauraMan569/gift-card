@@ -8,14 +8,128 @@
 </head>
 <body>
 
-  <section id="createScreen" class="screen">
+
+<section id="previewScreen" class="screen preview-screen">
+
+  <div class="preview-bg">
+    <div class="bg-grid"></div>
+  </div>
+
+  <div class="preview-card">
+    <div class="preview-top-content">
+      <div class="preview-badge">Онлайн-конструктор</div>
+
+      <h1 class="preview-title">
+        Создавайте подарки,<br>
+        которые хочется открыть
+      </h1>
+      <br>
+    </div>
+
+    <div class="preview-visual">
+      <div class="preview-envelope">
+        <div class="preview-envelope-back"></div>
+        <div class="preview-sheet preview-sheet-floral"></div>
+        <div class="preview-envelope-front"></div>
+        <div class="preview-envelope-flap"></div>
+      </div>
+    </div>
+
+
+    <div class="preview-features">
+      <span>Красивая анимация</span>
+      <span>Любые цвета</span>
+      <span>Ваши логотипы и изображения</span>
+    </div>
+
+
+<div class="preview-divider">
+  <span>Примеры</span>
+</div>
+
+
+<div class="preview-examples-scroll">
+  <div class="preview-example-envelope">
+    <div class="mini-preview-envelope">
+      <div class="mini-preview-back"></div>
+      <div class="mini-preview-card"></div>
+      <div class="mini-preview-front"></div>
+      <div class="mini-preview-flap"></div>
+    </div>
+  </div>
+
+  <div class="preview-example-envelope">
+    <div class="mini-preview-envelope">
+      <div class="mini-preview-back"></div>
+      <div class="mini-preview-card"></div>
+      <div class="mini-preview-front"></div>
+      <div class="mini-preview-flap"></div>
+    </div>
+  </div>
+
+  <div class="preview-example-envelope">
+    <div class="mini-preview-envelope">
+      <div class="mini-preview-back"></div>
+      <div class="mini-preview-card"></div>
+      <div class="mini-preview-front"></div>
+      <div class="mini-preview-flap"></div>
+    </div>
+  </div>
+
+  <div class="preview-example-envelope">
+    <div class="mini-preview-envelope">
+      <div class="mini-preview-back"></div>
+      <div class="mini-preview-card"></div>
+      <div class="mini-preview-front"></div>
+      <div class="mini-preview-flap"></div>
+    </div>
+  </div>
+
+  <div class="preview-example-envelope">
+    <div class="mini-preview-envelope">
+      <div class="mini-preview-back"></div>
+      <div class="mini-preview-card"></div>
+      <div class="mini-preview-front"></div>
+      <div class="mini-preview-flap"></div>
+    </div>
+  </div>
+</div>
+
+
+
+    <button id="startPreviewBtn" class="preview-start-btn" type="button">
+      Начать
+    </button>
+  </div>
+</section>
+
+
+
+
+
+  <section id="createScreen" class="screen hidden">
     <h1>Создайте подарок</h1>
 
-    <label for="cardSidesMode">Формат</label>
-    <select id="cardSidesMode">
-      <option value="single" selected>Односторонний</option>
-      <option value="double">Двусторонний</option>
-    </select>
+<div class="label-with-hint">
+  <label for="cardSidesMode">Формат</label>
+  
+  <div class="hint-wrap">
+    <span class="hint-icon" id="formatHint">?</span>
+
+    <div class="hint-popup" id="formatHintPopup">
+      <strong>Формат карты</strong><br><br>
+      Односторонний — только лицевая сторона.<br><br>
+      Двусторонний — есть лицевая и обратная сторона.<br>
+      Можно добавить текст или изображение.
+    </div>
+  </div>
+</div>
+
+<select id="cardSidesMode">
+  <option value="single" selected>Односторонний</option>
+  <option value="double">Двусторонний</option>
+</select>
+  
 
     <label for="giftType">Тип подарка</label>
     <select id="giftType">
@@ -24,6 +138,296 @@
       <option value="certificate">Сертификат</option>
     </select>
 
+
+
+
+
+
+<div class="palette-section">
+  <label>Готовые палитры</label>
+
+  <div class="palette-list" id="paletteList">
+
+
+<button class="palette-card" type="button"
+  data-card="#f7f7f7"
+  data-envelope="#b8b8b8"
+  data-text="#2f2f2f">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f7f7f7;"></span>
+    <span class="palette-color" style="background:#b8b8b8;"></span>
+    <span class="palette-color" style="background:#2f2f2f;"></span>
+  </span>
+
+  <span class="palette-name">Минималистичная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#f4f1e8"
+  data-envelope="#d7c3a5"
+  data-text="#6b4f3a">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f4f1e8;"></span>
+    <span class="palette-color" style="background:#d7c3a5;"></span>
+    <span class="palette-color" style="background:#6b4f3a;"></span>
+  </span>
+
+  <span class="palette-name">Тёплая бежевая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#e8f7f1"
+  data-envelope="#9dd9c5"
+  data-text="#2f6f5e">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#e8f7f1;"></span>
+    <span class="palette-color" style="background:#9dd9c5;"></span>
+    <span class="palette-color" style="background:#2f6f5e;"></span>
+  </span>
+
+  <span class="palette-name">Мятная</span>
+</button>
+
+<button class="palette-card" type="button"
+  data-card="#2f3142"
+  data-envelope="#444a68"
+  data-text="#f8e9ef">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#2f3142;"></span>
+    <span class="palette-color" style="background:#444a68;"></span>
+    <span class="palette-color" style="background:#f8e9ef;"></span>
+  </span>
+
+  <span class="palette-name">Тёмная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#fff4e6"
+  data-envelope="#f4c27a"
+  data-text="#8b4f1d">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#fff4e6;"></span>
+    <span class="palette-color" style="background:#f4c27a;"></span>
+    <span class="palette-color" style="background:#8b4f1d;"></span>
+  </span>
+
+  <span class="palette-name">Карамельная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#ffe8ef"
+  data-envelope="#ff9bb8"
+  data-text="#9f2f56">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#ffe8ef;"></span>
+    <span class="palette-color" style="background:#ff9bb8;"></span>
+    <span class="palette-color" style="background:#9f2f56;"></span>
+  </span>
+
+  <span class="palette-name">Ягодная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#f3e8ff"
+  data-envelope="#c6a6ff"
+  data-text="#5c2d91">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f3e8ff;"></span>
+    <span class="palette-color" style="background:#c6a6ff;"></span>
+    <span class="palette-color" style="background:#5c2d91;"></span>
+  </span>
+
+  <span class="palette-name">Лавандовая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#e9f7ff"
+  data-envelope="#7cc8f8"
+  data-text="#1f5f8b">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#e9f7ff;"></span>
+    <span class="palette-color" style="background:#7cc8f8;"></span>
+    <span class="palette-color" style="background:#1f5f8b;"></span>
+  </span>
+
+  <span class="palette-name">Небесная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#f5fff0"
+  data-envelope="#bfdc7a"
+  data-text="#5c6f2a">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f5fff0;"></span>
+    <span class="palette-color" style="background:#bfdc7a;"></span>
+    <span class="palette-color" style="background:#5c6f2a;"></span>
+  </span>
+
+  <span class="palette-name">Фисташковая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#f6ede3"
+  data-envelope="#cfa77a"
+  data-text="#6f4728">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f6ede3;"></span>
+    <span class="palette-color" style="background:#cfa77a;"></span>
+    <span class="palette-color" style="background:#6f4728;"></span>
+  </span>
+
+  <span class="palette-name">Кофейная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#fff1eb"
+  data-envelope="#ffb38a"
+  data-text="#a64b2a">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#fff1eb;"></span>
+    <span class="palette-color" style="background:#ffb38a;"></span>
+    <span class="palette-color" style="background:#a64b2a;"></span>
+  </span>
+
+  <span class="palette-name">Персиковая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#f4f7fb"
+  data-envelope="#aab7cf"
+  data-text="#44506a">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f4f7fb;"></span>
+    <span class="palette-color" style="background:#aab7cf;"></span>
+    <span class="palette-color" style="background:#44506a;"></span>
+  </span>
+
+  <span class="palette-name">Серо-голубая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#1f2233"
+  data-envelope="#31374f"
+  data-text="#f1d7a8">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#1f2233;"></span>
+    <span class="palette-color" style="background:#31374f;"></span>
+    <span class="palette-color" style="background:#f1d7a8;"></span>
+  </span>
+
+  <span class="palette-name">Ночная золотая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#2a1f2f"
+  data-envelope="#51365c"
+  data-text="#f7d8ff">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#2a1f2f;"></span>
+    <span class="palette-color" style="background:#51365c;"></span>
+    <span class="palette-color" style="background:#f7d8ff;"></span>
+  </span>
+
+  <span class="palette-name">Сливовая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#0f2d2b"
+  data-envelope="#1f5a55"
+  data-text="#d8f3ee">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#0f2d2b;"></span>
+    <span class="palette-color" style="background:#1f5a55;"></span>
+    <span class="palette-color" style="background:#d8f3ee;"></span>
+  </span>
+
+  <span class="palette-name">Изумрудная</span>
+</button>
+
+  </div>
+</div>
+
+
+
+
+<div class="palette-section special-palettes">
+  <label>Специальные палитры</label>
+
+  <div class="palette-list">
+
+    <!-- Prime Detailing -->
+    <button class="palette-card special" type="button"
+      data-card="#1a1a1a"
+      data-envelope="#ff7a00"
+      data-text="#ffffff">
+
+      <span class="palette-preview">
+        <span class="palette-color" style="background:#1a1a1a;"></span>
+        <span class="palette-color" style="background:#ff7a00;"></span>
+        <span class="palette-color" style="background:#ffffff;"></span>
+      </span>
+
+      <span class="palette-name">Prime Detailing</span>
+    </button>
+
+    <!-- Интерьеры будущего -->
+    <button class="palette-card special" type="button"
+      data-card="#ffffff"
+      data-envelope="#8b1e2d"
+      data-text="#5a0f18">
+
+      <span class="palette-preview">
+        <span class="palette-color" style="background:#f4f1ec;"></span>
+        <span class="palette-color" style="background:#be241f;"></span>
+        <span class="palette-color" style="background:#a02925;"></span>
+      </span>
+
+      <span class="palette-name">Интерьеры будущего</span>
+    </button>
+
+  </div>
+</div>
+
+
+
+<div class="palette-actions">
+  <button type="button" id="autoPaletteBtn">Подобрать палитру</button>
+  <button type="button" id="randomColorsBtn">Случайные цвета</button>
+</div>
+<div class="palette-hint">
+  Подберите стиль автоматически или попробуйте случайные сочетания
+</div>
+
+
+    
     <div class="color-grid">
       <div class="color-field">
         <label for="cardColorInput">Цвет карты/сертификата</label>
@@ -54,6 +458,9 @@
       </div>
     </div>
 
+
+
+
     <!--первая сторона-->
 <div id="frontSideEditor" class="side-editor">
   <h3 class="side-title">Первая сторона</h3>
@@ -80,7 +487,7 @@
     <input id="logoInput" type="file" accept=".png,.jpg,.jpeg,.webp,.svg,image/png,image/jpeg,image/webp,image/svg+xml">
 
     <p id="logoHint" class="hidden">
-      *Чтобы карта или сертификат выглядели гармоничнее, подбирайте цвет под логотип или используйте логотип без фона.
+      *Чтобы карта или сертификат выглядели гармоничнее, подбирайте цвет под фон логотипа или используйте формат изображения без фона.
     </p>
 
     <div id="imageOpacityWrap">
@@ -117,6 +524,9 @@
     </div>
   </div>
 </div>
+
+
+
 
     <!--вторая сторона-->
 <div id="backSideEditor" class="side-editor hidden">
@@ -179,12 +589,19 @@
         <option value="large">Большой</option>
       </select>
     </div>
+
+
+    <div id="backSideNotice" class="side-notice hidden">
+      У вас пока не заполнена вторая сторона. Вы можете добавить текст или, например, изображение для фона.
+    </div>
   </div>
 </div>
 
-
     <button id="continueBtn">Продолжить</button>
   </section>
+
+
+
 
   <!--конверт-->
   <section id="envelopeScreen" class="screen hidden">
@@ -202,6 +619,8 @@
 
     <button id="openBtn">Открыть</button>
   </section>
+
+
 
 
   <!--финальная первая сторона-->
@@ -241,6 +660,8 @@
       <button id="frontDownloadBtn" type="button">Скачать</button>
     </div>
   </section>
+
+
 
 
   <!--финальная вторая сторона-->
