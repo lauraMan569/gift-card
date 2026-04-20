@@ -1209,7 +1209,6 @@ mini-preview-card::before {
   width: auto;
   min-width: 180px;
   padding: 14px 22px;
-  margin-top: 55px;
   border: none;
   border-radius: 14px;
   background: linear-gradient(180deg, #6f8dff 0%, #5b74eb 100%);
@@ -1305,7 +1304,6 @@ mini-preview-card::before {
 }
 
 .bg-card {
- /* width: 220px;*/
   height: 180px;
   border-radius: 16px;
 
