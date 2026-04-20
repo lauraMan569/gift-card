@@ -131,26 +131,76 @@ let giftData = {
 };
 
 
+document.body.classList.add("no-scroll");
+document.body.classList.remove("no-scroll");
 
-function createBackgroundCards() {
-  const grid = document.querySelector(".bg-grid");
 
-  for (let i = 0; i < 24; i++) {
-    const el = document.createElement("div");
+function generateSharedBackgroundPalette(count = 24) {
+  const palette = [];
 
+  for (let i = 0; i < count; i++) {
     const hue = Math.floor(Math.random() * 360);
 
-    el.style.background = `
+    palette.push(`
       linear-gradient(135deg,
         hsl(${hue}, 80%, 85%),
         hsl(${hue}, 70%, 70%)
       )
-    `;
-
-    el.className = "bg-card";
-    grid.appendChild(el);
+    `);
   }
+
+  return palette;
 }
+
+function createBackgroundCards() {
+  const grids = document.querySelectorAll(".bg-grid");
+  const sharedPalette = generateSharedBackgroundPalette(24);
+
+  grids.forEach(grid => {
+    grid.innerHTML = "";
+
+    sharedPalette.forEach(backgroundValue => {
+      const el = document.createElement("div");
+      el.className = "bg-card";
+      el.style.background = backgroundValue;
+      grid.appendChild(el);
+    });
+  });
+}
+
+createBackgroundCards();function generateSharedBackgroundPalette(count = 24) {
+  const palette = [];
+
+  for (let i = 0; i < count; i++) {
+    const hue = Math.floor(Math.random() * 360);
+
+    palette.push(`
+      linear-gradient(135deg,
+        hsl(${hue}, 80%, 85%),
+        hsl(${hue}, 70%, 70%)
+      )
+    `);
+  }
+
+  return palette;
+}
+
+function createBackgroundCards() {
+  const grids = document.querySelectorAll(".bg-grid");
+  const sharedPalette = generateSharedBackgroundPalette(24);
+
+  grids.forEach(grid => {
+    grid.innerHTML = "";
+
+    sharedPalette.forEach(backgroundValue => {
+      const el = document.createElement("div");
+      el.className = "bg-card";
+      el.style.background = backgroundValue;
+      grid.appendChild(el);
+    });
+  });
+}
+
 createBackgroundCards();
 
 
@@ -279,7 +329,6 @@ function fillPreviewDemoCards() {
     front.style.background = palette.frontColor;
   });
 }
-
 fillPreviewDemoCards();
 
 

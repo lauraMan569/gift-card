@@ -106,11 +106,17 @@
 
 
 
+<section id="createScreen" class="screen hidden">
 
-  <section id="createScreen" class="screen hidden">
-    <h1>Создайте подарок</h1>
+  <div class="preview-bg constructor-bg">
+    <div class="bg-grid"></div>
+  </div>
+
+<div class="create-card">
+<h1>Создайте подарок</h1>
 
 <div class="label-with-hint">
+
   <label for="cardSidesMode">Формат</label>
   
   <div class="hint-wrap">
@@ -598,13 +604,21 @@
 </div>
 
     <button id="continueBtn">Продолжить</button>
-  </section>
+
+</div>
+</section>
 
 
 
 
   <!--конверт-->
   <section id="envelopeScreen" class="screen hidden">
+
+    <div class="preview-bg constructor-bg">
+      <div class="bg-grid"></div>
+    </div>
+
+  <div class="screen-card">
     <p class="gift-text"></p> 
 
     <div class="scene">
@@ -618,6 +632,7 @@
     </div>
 
     <button id="openBtn">Открыть</button>
+  </div>
   </section>
 
 
@@ -625,6 +640,14 @@
 
   <!--финальная первая сторона-->
   <section id="frontCardScreen" class="screen hidden">
+
+  <div class="preview-bg constructor-bg">
+    <div class="bg-grid"></div>
+  </div>
+
+  <div class="screen-card">
+
+
     <div class="card-flip" id="cardFlip">
       <div class="card-side card-front">
         <div class="card" id="giftCard">
@@ -659,6 +682,7 @@
         <button id="frontShareBtn" type="button">Поделиться</button>
       <button id="frontDownloadBtn" type="button">Скачать</button>
     </div>
+  </div>
   </section>
 
 
@@ -666,6 +690,12 @@
 
   <!--финальная вторая сторона-->
   <section id="backCardScreen" class="screen hidden">
+
+  <div class="preview-bg constructor-bg">
+    <div class="bg-grid"></div>
+  </div>
+
+  <div class="screen-card">
     <div class="card-flip" id="backCardFlip">
       <div class="card-side card-front">
         <div class="card" id="backGiftCard">
@@ -700,6 +730,7 @@
       <button id="backShareBtn" type="button">Поделиться</button>
       <button id="backDownloadBtn" type="button">Скачать</button>
     </div>
+  </div>
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
