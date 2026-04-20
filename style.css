@@ -1227,8 +1227,6 @@ mini-preview-card::before {
 
 .preview-start-btn:hover {
   filter: brightness(1.03);
-
-  top: 55px;
 }
 
 
