@@ -321,7 +321,7 @@ button {
   width: 500px;
   height: 300px;
   margin: 0 auto;
-  margin-top: 54px;
+  margin-top: 62px;
   padding: 0;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
   background: var(--card-bg);
@@ -854,7 +854,7 @@ button {
 
 
 
-
+/*превью*/
 .preview-screen {
   position: relative;
   overflow: hidden;
@@ -1067,7 +1067,7 @@ button {
 }
 
 
-/*контейнер*/
+/*мини конверты как примеры*/
 .preview-example-envelope {
   flex: 0 0 auto;
   width: 165px;
@@ -1244,6 +1244,7 @@ mini-preview-card::before {
 
 
 
+/*фон разноцветный*/
 .preview-bg {
   position: absolute;
   top: 0;
@@ -1339,7 +1340,6 @@ mini-preview-card::before {
   align-items: flex-start;
 }
 
-
 #createScreen > *:not(.preview-bg) {
   position: relative;
   z-index: 1;
@@ -1375,7 +1375,7 @@ mini-preview-card::before {
 
 .screen-card {
   width: 100%;
-  max-width: 1100px;   /* главный размер */
+  max-width: 1100px;
 
   padding: 90px 26px;
   border-radius: 32px;
@@ -1391,6 +1391,110 @@ mini-preview-card::before {
 
 
 
+
+.bg-diagonal {
+  position: absolute;
+  width: 220%;
+  height: 34%;
+  left: -60%;
+  border-radius: 999px;
+  filter: blur(70px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-diagonal.thin {
+  height: 18%;
+  filter: blur(50px);
+}
+
+.bg-diagonal.d1 {
+  top: -8%;
+  transform: rotate(-7deg);
+  background: linear-gradient(120deg,
+    rgba(120, 140, 255, 0.10),
+    rgba(255, 160, 210, 0.07)
+  );
+}
+
+.bg-diagonal.d2 {
+  top: 8%;
+  transform: rotate(-4deg);
+  background: linear-gradient(120deg,
+    rgba(255, 200, 140, 0.08),
+    rgba(120, 200, 255, 0.06)
+  );
+}
+
+.bg-diagonal.d3 {
+  top: 24%;
+  transform: rotate(5deg);
+  background: linear-gradient(120deg,
+    rgba(170, 140, 255, 0.08),
+    rgba(120, 255, 210, 0.06)
+  );
+}
+
+.bg-diagonal.d4 {
+  top: 42%;
+  transform: rotate(-6deg);
+  background: linear-gradient(120deg,
+    rgba(255, 170, 120, 0.07),
+    rgba(255, 120, 190, 0.06)
+  );
+}
+
+.bg-diagonal.d5 {
+  top: 58%;
+  transform: rotate(4deg);
+  background: linear-gradient(120deg,
+    rgba(120, 255, 200, 0.07),
+    rgba(180, 140, 255, 0.07)
+  );
+}
+
+.bg-diagonal.d6 {
+  top: 74%;
+  transform: rotate(-5deg);
+  background: linear-gradient(120deg,
+    rgba(140, 190, 255, 0.08),
+    rgba(255, 210, 140, 0.06)
+  );
+}
+
+.bg-diagonal.d7 {
+  top: 14%;
+  transform: rotate(3deg);
+  background: linear-gradient(120deg,
+    rgba(255, 120, 160, 0.06),
+    rgba(120, 140, 255, 0.05)
+  );
+}
+
+.bg-diagonal.d8 {
+  top: 52%;
+  transform: rotate(-3deg);
+  background: linear-gradient(120deg,
+    rgba(120, 255, 200, 0.05),
+    rgba(255, 200, 120, 0.05)
+  );
+}
+
+.bg-diagonal.d9 {
+  top: 86%;
+  transform: rotate(7deg);
+  background: linear-gradient(120deg,
+    rgba(180, 140, 255, 0.07),
+    rgba(120, 200, 255, 0.05)
+  );
+}
+
+
+
+
+
+
+/*страницы с конвертом и финальная не скролятся*/
 body.no-scroll {
   overflow: hidden;
 }
@@ -1438,7 +1542,21 @@ body.no-scroll {
     margin-top: 8px;
   }
 
+/*страницы с конвертом и финальная не скролятся*/
+#envelopeScreen,
+#frontCardScreen,
+#backCardScreen {
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+}
 
+  .no-scroll {
+    overflow: hidden;
+    height: 100dvh;
+  }
+
+  
   .envelope {
     width: min(82vw, 300px);
     aspect-ratio: 300 / 170;
@@ -1459,37 +1577,53 @@ body.no-scroll {
     height: 55%;
   }
 
-
-  .gift-sheet {
-    width: 43.4%;
-    aspect-ratio: 5 / 3;
-    height: auto;
-    bottom: 75%;
-    border-radius: clamp(4px, 1.4vw, 6px);
-    transform: translateX(-50%) translateY(118px) scale(1);
-  }
-
-  .envelope.card-out .gift-sheet {
-    transform: translateX(-50%) translateY(-2px) scale(1);
-  }
-
-  .envelope.card-zoom .gift-sheet {
-    transform: translateX(-50%) translateY(98px) scale(3);
-  }
-
   #openBtn {
-    margin-top: 28px;
-  }
+    width: 300px;     
+    display: block;
+    margin: 24px auto 0;
+}
 
-  .card {
-    width: 100%;
-    max-width: 100%;
-    aspect-ratio: 5 / 3;
-    height: auto;
-    margin-top: 98px;
-    border-radius: 18px;
-  }
+:root {
+  --mobile-sheet-width: 96px;
+  --mobile-zoom-scale: 3.5;
+  --mobile-final-card-width: calc(var(--mobile-sheet-width) * var(--mobile-zoom-scale));
+}
 
+.gift-sheet {
+  width: var(--mobile-sheet-width);
+  aspect-ratio: 5 / 3;
+  height: auto;
+  bottom: 76%;
+  border-radius: 6px;
+  transform: translateX(-50%) translateY(118px) scale(1);
+}
+
+.envelope.card-out .gift-sheet {
+  transform: translateX(-50%) translateY(-2px) scale(1);
+}
+
+.envelope.card-zoom .gift-sheet {
+  transform: translateX(-50%) translateY(98px) scale(var(--mobile-zoom-scale));
+}
+
+.card {
+  width: var(--mobile-final-card-width);
+  max-width: var(--mobile-final-card-width);
+  aspect-ratio: 5 / 3;
+  height: auto;
+  border-radius: 18px;
+
+  margin-top: 76px;
+}
+
+.result-actions {
+  width: var(--mobile-final-card-width);
+  max-width: var(--mobile-final-card-width);
+}
+
+
+
+  
   .card-user-bg {
     border-radius: 18px;
   }
@@ -1613,3 +1747,5 @@ body.no-scroll {
     font-size: 12px;
   }
 }
+
+

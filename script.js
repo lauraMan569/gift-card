@@ -131,10 +131,6 @@ let giftData = {
 };
 
 
-document.body.classList.add("no-scroll");
-document.body.classList.remove("no-scroll");
-
-
 function generateSharedBackgroundPalette(count = 24) {
   const palette = [];
 
@@ -919,6 +915,8 @@ if (backActiveImage) {
   // 🔥 ВАЖНО: переход ВНЕ if
   createScreen.classList.add("hidden");
   envelopeScreen.classList.remove("hidden");
+
+  document.body.classList.add("no-scroll");
 };
 
 function setTextOrHide(element, value) {
@@ -1183,6 +1181,8 @@ if (frontBackBtn) {
     frontCardScreen.classList.add("hidden");
     backCardScreen.classList.add("hidden");
     createScreen.classList.remove("hidden");
+
+    document.body.classList.remove("no-scroll");
   };
 }
 
@@ -1191,6 +1191,8 @@ if (backBackBtn) {
     frontCardScreen.classList.add("hidden");
     backCardScreen.classList.add("hidden");
     createScreen.classList.remove("hidden");
+
+    document.body.classList.remove("no-scroll");
   };
 }
 
