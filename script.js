@@ -6,6 +6,8 @@ const backCardScreen = document.getElementById("backCardScreen");
 const continueBtn = document.getElementById("continueBtn");
 const openBtn = document.getElementById("openBtn");
 
+const sideTitles = document.querySelectorAll(".side-title");
+
 const frontBackBtn = document.getElementById("frontBackBtn");
 const frontDownloadBtn = document.getElementById("frontDownloadBtn");
 const frontToggleSideBtn = document.getElementById("frontToggleSideBtn");
@@ -201,16 +203,6 @@ createBackgroundCards();
 
 
 
-
-const previewScreen = document.getElementById("previewScreen");
-const startPreviewBtn = document.getElementById("startPreviewBtn");
-if (startPreviewBtn) {
-  startPreviewBtn.onclick = function () {
-    previewScreen.classList.add("hidden");
-    createScreen.classList.remove("hidden");
-  };
-}
-
 const hintBtn = document.getElementById("formatHint");
 const hintPopup = document.getElementById("formatHintPopup");
 
@@ -224,6 +216,7 @@ if (hintBtn && hintPopup) {
     hintPopup.classList.remove("show");
   });
 }
+
 
 
 
@@ -328,6 +321,14 @@ function fillPreviewDemoCards() {
 fillPreviewDemoCards();
 
 
+
+
+  backTitleInput.addEventListener("input", updateBackSideNotice);
+  backMessageInput.addEventListener("input", updateBackSideNotice);
+  backAmountInput.addEventListener("input", updateBackSideNotice);
+  backAddressInput.addEventListener("input", updateBackSideNotice);
+  backContactsInput.addEventListener("input", updateBackSideNotice);
+
 function updateBackSideNotice() {
   const isDouble = cardSidesMode.value === "double";
 
@@ -336,6 +337,7 @@ function updateBackSideNotice() {
   const hasBackAmount = backAmountInput.value.trim() !== "";
   const hasBackAddress = backAddressInput.value.trim() !== "";
   const hasBackContacts = backContactsInput.value.trim() !== "";
+
   const hasBackImage = Boolean(giftData.backLogoSrc);
 
   const hasAnyBackContent =
@@ -352,6 +354,43 @@ function updateBackSideNotice() {
     backSideNotice.classList.add("hidden");
   }
 }
+
+
+titleInput.addEventListener("input", updateFrontSideNotice);
+messageInput.addEventListener("input", updateFrontSideNotice);
+amountInput.addEventListener("input", updateFrontSideNotice);
+addressInput.addEventListener("input", updateFrontSideNotice);
+contactsInput.addEventListener("input", updateFrontSideNotice);
+
+const frontSideNotice = document.getElementById("frontSideNotice");
+
+function updateFrontSideNotice() {
+  const hasTitle = titleInput.value.trim() !== "";
+  const hasMessage = messageInput.value.trim() !== "";
+  const hasAmount = amountInput.value.trim() !== "";
+  const hasAddress = addressInput.value.trim() !== "";
+  const hasContacts = contactsInput.value.trim() !== "";
+
+  const hasImage = Boolean(giftData.logoSrc);
+
+  const hasAnyContent =
+    hasTitle ||
+    hasMessage ||
+    hasAmount ||
+    hasAddress ||
+    hasContacts ||
+    hasImage;
+
+  if (!hasAnyContent) {
+    frontSideNotice.classList.remove("hidden");
+  } else {
+    frontSideNotice.classList.add("hidden");
+  }
+}
+
+
+
+
 
 
 function updateFontPreview() {
@@ -455,6 +494,11 @@ function updateCardSidesUI() {
     backSideEditor.classList.add("hidden");
   }
 
+    // 👇 ВОТ ТВОЯ ЛОГИКА
+sideTitles.forEach(function (title) {
+  title.classList.toggle("hidden", cardSidesMode.value === "single");
+});
+
   if (frontToggleSideBtn) {
     frontToggleSideBtn.classList.toggle("hidden", !isDouble);
   }
@@ -538,7 +582,7 @@ updateBackImageControlsUI();
 initDefaultColorsFromRoot();
 
 updateBackSideNotice();
-
+updateFrontSideNotice();
 
 /*.     */
 function hexToRgb(hex) {
@@ -603,6 +647,7 @@ paletteCards.forEach(card => {
     this.classList.add("active");
   });
 });
+
 
 function clearActivePalette() {
   paletteCards.forEach(item => item.classList.remove("active"));
@@ -752,6 +797,7 @@ logoInput.addEventListener("change", function (event) {
   if (!file) {
     giftData.logoSrc = "";
     updateImageControlsUI();
+    updateFrontSideNotice();
     return;
   }
 
@@ -760,6 +806,7 @@ logoInput.addEventListener("change", function (event) {
   reader.onload = function (e) {
     giftData.logoSrc = e.target.result;
     updateImageControlsUI();
+    updateFrontSideNotice();
   };
 
   reader.readAsDataURL(file);
@@ -918,6 +965,7 @@ if (backActiveImage) {
 
   document.body.classList.add("no-scroll");
 };
+
 
 function setTextOrHide(element, value) {
   if (value) {
@@ -1123,6 +1171,7 @@ backResultTitle.classList.toggle("with-divider", hasBackTitle && hasBackMessage)
 backAmountWrap.classList.toggle("with-divider", hasBackAmount && (hasBackTitle || hasBackMessage));
 backGiftCard.classList.toggle("no-lines", !(giftData.type || hasBackTitle || hasBackMessage || hasBackAmount));
 
+
   // принудительный reflow
   void animatedEnvelope.offsetWidth;
   
@@ -1216,14 +1265,6 @@ if (backDownloadBtn) {
   backDownloadBtn.onclick = downloadCard;
 }
 
-
-if (frontShareBtn) {
-  frontShareBtn.onclick = shareCard;
-}
-
-if (backShareBtn) {
-  backShareBtn.onclick = shareCard;
-}
 
 
 function resetAllScreens() {
@@ -1441,6 +1482,17 @@ async function downloadCard() {
   }
 }
 
+async function handleShareClick(event) {
+  event.preventDefault();
+
+  const link = await sendCardToServer();
+  if (!link) return;
+
+  showShareModal(link);
+}
+frontShareBtn.onclick = handleShareClick;
+backShareBtn.onclick = handleShareClick;
+
 
 async function shareCard() {
   const wasOpenDisabled = openBtn.disabled;
@@ -1504,3 +1556,206 @@ async function shareCard() {
     }
   }
 }
+
+
+async function sendCardToServer() {
+  try {
+    const response = await fetch("http://localhost:5000/api/cards", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(giftData)
+    });
+
+    const data = await response.json();
+
+    return data.link;
+
+  } catch (error) {
+    console.error("Ошибка:", error);
+    alert("Ошибка при отправке");
+  }
+}
+
+/*if (frontShareBtn) {
+  frontShareBtn.onclick = async function () {
+    const link = await sendCardToServer();
+
+    if (!link) return;
+
+    alert("Ссылка создана:\n" + link);
+    window.open(link, "_blank");
+  };
+}
+
+if (backShareBtn) {
+  backShareBtn.onclick = async function () {
+    const link = await sendCardToServer();
+
+    if (!link) return;
+
+    alert("Ссылка создана:\n" + link);
+    window.open(link, "_blank");
+  };
+}
+*/
+
+
+const shareModal = document.getElementById("shareModal");
+const shareLinkInput = document.getElementById("shareLinkInput");
+const copyShareLinkBtn = document.getElementById("copyShareLinkBtn");
+const nativeShareBtn = document.getElementById("nativeShareBtn");
+const closeShareModalBtn = document.getElementById("closeShareModalBtn");
+
+let currentShareLink = "";
+
+function showShareModal(link) {
+  currentShareLink = link;
+  shareLinkInput.value = link;
+  shareModal.classList.remove("hidden");
+}
+
+async function handleShareClick() {
+  const link = await sendCardToServer();
+
+  if (!link) return;
+
+  showShareModal(link);
+}
+
+if (frontShareBtn) {
+  frontShareBtn.onclick = handleShareClick;
+}
+
+if (backShareBtn) {
+  backShareBtn.onclick = handleShareClick;
+}
+
+if (copyShareLinkBtn) {
+  copyShareLinkBtn.onclick = async function () {
+    await navigator.clipboard.writeText(currentShareLink);
+    copyShareLinkBtn.textContent = "Скопировано";
+
+    setTimeout(() => {
+      copyShareLinkBtn.textContent = "Скопировать";
+    }, 1500);
+  };
+}
+
+if (nativeShareBtn) {
+  nativeShareBtn.onclick = async function () {
+    if (navigator.share) {
+      await navigator.share({
+        title: "Подарочная карта",
+        text: "Откройте вашу подарочную карту",
+        url: currentShareLink
+      });
+    } else {
+      await navigator.clipboard.writeText(currentShareLink);
+      nativeShareBtn.textContent = "Ссылка скопирована";
+    }
+  };
+}
+
+if (closeShareModalBtn) {
+  closeShareModalBtn.onclick = function () {
+    shareModal.classList.add("hidden");
+  };
+}
+
+
+
+
+
+
+// === AUTH SCREEN ===
+const container = document.getElementById("container");
+const previewScreen = document.getElementById("previewScreen");
+
+const signUp = document.getElementById("signUp");
+const signIn = document.getElementById("signIn");
+
+const authFormButtons = document.querySelectorAll(".container .form-container form button");
+
+signUp.onclick = function () {
+  container.classList.add("right-panel-active");
+};
+
+signIn.onclick = function () {
+  container.classList.remove("right-panel-active");
+};
+
+
+authFormButtons.forEach(function (button) {
+  button.type = "button";
+
+  button.onclick = function (event) {
+    event.preventDefault();
+
+    container.classList.add("hidden");
+    previewScreen.classList.remove("hidden");
+  };
+});
+
+
+
+const startPreviewBtn = document.getElementById("startPreviewBtn");
+
+if (startPreviewBtn) {
+  startPreviewBtn.onclick = function () {
+    previewScreen.classList.add("hidden");
+    createScreen.classList.remove("hidden");
+  };
+}
+
+
+
+
+const registerSubmitBtn = document.getElementById("registerSubmitBtn");
+const loginSubmitBtn = document.getElementById("loginSubmitBtn");
+
+registerSubmitBtn.onclick = async function () {
+  const email = document.getElementById("registerEmail").value.trim();
+  const password = document.getElementById("registerPassword").value.trim();
+
+  const response = await fetch("http://localhost:5000/api/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, password })
+  });
+
+  const result = await response.json();
+
+  if (response.ok) {
+    alert("Регистрация успешна");
+    document.getElementById("container").classList.remove("right-panel-active");
+  } else {
+    alert(result.error);
+  }
+};
+
+loginSubmitBtn.onclick = async function () {
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+
+  const response = await fetch("http://localhost:5000/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, password })
+  });
+
+  const result = await response.json();
+
+  if (response.ok) {
+    alert("Вход выполнен");
+    document.getElementById("container").classList.add("hidden");
+    document.getElementById("previewScreen").classList.remove("hidden");
+  } else {
+    alert(result.error);
+  }
+};
