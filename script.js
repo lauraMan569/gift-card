@@ -1560,7 +1560,7 @@ async function shareCard() {
 
 async function sendCardToServer() {
   try {
-    const response = await fetch("http://localhost:5000/api/cards", {
+    const response = await fetch("http://192.168.1.100:5000/api/cards", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -1720,7 +1720,7 @@ registerSubmitBtn.onclick = async function () {
   const email = document.getElementById("registerEmail").value.trim();
   const password = document.getElementById("registerPassword").value.trim();
 
-  const response = await fetch("http://localhost:5000/api/register", {
+  const response = await fetch("http://192.168.1.100:5000/api/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -1741,7 +1741,7 @@ loginSubmitBtn.onclick = async function () {
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value.trim();
 
-  const response = await fetch("http://localhost:5000/api/login", {
+  const response = await fetch("http://192.168.1.100:5000/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

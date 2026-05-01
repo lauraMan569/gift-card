@@ -1874,5 +1874,33 @@
         "backAmount": "",
         "backAddress": "",
         "backContacts": ""
+    },
+    "51f76080": {
+        "logoSrc": "",
+        "logoPosition": "top-right",
+        "imageMode": "logo",
+        "imageOpacity": "100",
+        "imageSize": "medium",
+        "backLogoSrc": "",
+        "backLogoPosition": "top-right",
+        "backImageMode": "logo",
+        "backImageOpacity": "100",
+        "backImageSize": "medium",
+        "textColor": "#506bff",
+        "fontFamily": "Arial, sans-serif",
+        "sidesMode": "single",
+        "cardColor": "#c9d4ff",
+        "envelopeColor": "#8dacff",
+        "type": "",
+        "title": "",
+        "message": "",
+        "amount": "",
+        "address": "",
+        "contacts": "",
+        "backTitle": "",
+        "backMessage": "",
+        "backAmount": "",
+        "backAddress": "",
+        "backContacts": ""
     }
 }
