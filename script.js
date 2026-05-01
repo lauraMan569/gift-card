@@ -1694,7 +1694,7 @@ authFormButtons.forEach(function (button) {
     event.preventDefault();
 
     container.classList.add("hidden");
-    previewScreen.classList.remove("hidden");
+    createScreen.classList.remove("hidden");
   };
 });
 
@@ -1705,9 +1705,10 @@ const startPreviewBtn = document.getElementById("startPreviewBtn");
 if (startPreviewBtn) {
   startPreviewBtn.onclick = function () {
     previewScreen.classList.add("hidden");
-    createScreen.classList.remove("hidden");
+    container.classList.remove("hidden");
   };
 }
+
 
 
 
@@ -1730,7 +1731,6 @@ registerSubmitBtn.onclick = async function () {
   const result = await response.json();
 
   if (response.ok) {
-    alert("Регистрация успешна");
     document.getElementById("container").classList.remove("right-panel-active");
   } else {
     alert(result.error);
@@ -1752,10 +1752,23 @@ loginSubmitBtn.onclick = async function () {
   const result = await response.json();
 
   if (response.ok) {
-    alert("Вход выполнен");
     document.getElementById("container").classList.add("hidden");
     document.getElementById("previewScreen").classList.remove("hidden");
   } else {
     alert(result.error);
   }
 };
+
+
+
+
+const skip1 = document.getElementById("skipAuthBtn");
+const skip2 = document.getElementById("skipAuthBtn2");
+
+function goToScreen() {
+  document.getElementById("container").classList.add("hidden");
+  document.getElementById("createScreen").classList.remove("hidden");
+}
+
+if (skip1) skip1.onclick = goToScreen;
+if (skip2) skip2.onclick = goToScreen;
