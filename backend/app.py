@@ -42,7 +42,7 @@ def create_card():
 
     return jsonify({
         "id": card_id,
-        "link": f"http://172.20.10.3:5000/card/{card_id}"
+        "link": f"http://192.168.1.100:5000/card/{card_id}"
     })
 
 
