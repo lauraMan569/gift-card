@@ -8,10 +8,27 @@
 </head>
 <body>
 
-<section id="previewScreen" class="screen preview-screen">
 
-  <div class="preview-bg">
+
+  <section id="previewScreen" class="screen preview-screen hidden">
+
+
+  <div class="preview-bg constructor-bg">
+
     <div class="bg-grid"></div>
+
+      <div class="bg-diagonal d1"></div>
+      <div class="bg-diagonal d2"></div>
+      <div class="bg-diagonal d3"></div>
+
+      <div class="bg-diagonal d4"></div>
+      <div class="bg-diagonal d5"></div>
+      <div class="bg-diagonal d6"></div>
+
+      <div class="bg-diagonal d7 thin"></div>
+      <div class="bg-diagonal d8 thin"></div>
+      <div class="bg-diagonal d9"></div>
+
   </div>
 
   <div class="preview-card">
@@ -94,8 +111,6 @@
   </div>
 </div>
 
-
-
     <button id="startPreviewBtn" class="preview-start-btn" type="button">
       Начать
     </button>
@@ -104,7 +119,10 @@
 
 
 
-<div class="container hidden" id="container">
+<section id="container" class="container screen hidden">
+
+<button class="back-btn" id="backToPreview">←</button>
+
         <div class="form-container sign-up-container">
 
             <form action="#">
@@ -116,9 +134,9 @@
                 <button id="registerSubmitBtn" type="button">Зарегистрироваться</button>
 
                 <button id="skipAuthBtn" type="button" class="skip-btn">Пропустить</button>
-
             </form>
         </div>
+
         <div class="form-container sign-in-container">
             <form action="#">
                 <h1>Войти</h1>
@@ -149,36 +167,19 @@
                 </div>
             </div>
         </div>
-    </div>
+</section>
 
 
 
-<section id="createScreen" class="screen hidden">
 
-  <div class="preview-bg constructor-bg">
-    <div class="bg-grid"></div>
 
-      <div class="bg-diagonal d1"></div>
 
-  <div class="bg-diagonal d2"></div>
-
-  <div class="bg-diagonal d3"></div>
-
-  <div class="bg-diagonal d4"></div>
-
-  <div class="bg-diagonal d5"></div>
-
-  <div class="bg-diagonal d6"></div>
-
-  <div class="bg-diagonal d7 thin"></div>
-
-  <div class="bg-diagonal d8 thin"></div>
-
-  <div class="bg-diagonal d9"></div>
-
-  </div>
+<section id= "createScreen" class="screen hidden">
 
 <div class="create-card">
+
+<button class="back-btn" id="backToAuth">←</button>
+
 <h1>Создайте подарок</h1>
 
 <div class="label-with-hint">
@@ -191,7 +192,7 @@
     <div class="hint-popup" id="formatHintPopup">
       <strong>Формат</strong><br>
       Определяет, будет ли у карты одна или две стороны.<br><br>
-      Односторонний - только основная сторона.<br><br>
+      Односторонний - только одна сторона.<br><br>
       Двусторонний - есть дополнительная сторона,<br>
       которую можно заполнить.
     </div>
