@@ -60,7 +60,11 @@
 
 
 <div class="preview-divider">
-  <span>Примеры</span>
+  <span>Каждый конверт - отдельное настроение и стиль</span>
+</div>
+
+<div class="preview-divider-other">
+  <span>Попробуйте на них нажать</span>
 </div>
 
 
@@ -163,7 +167,7 @@
                 <div class="overlay-panel overlay-right">
                     <h1>Привет!</h1>
                     <p>Введите свои данные и начните пользоваться сервисом</p>
-                    <button class="ghost" id="signUp">Зарегистрировать</button>
+                    <button class="ghost" id="signUp">Создать аккаунт</button>
                 </div>
             </div>
         </div>
@@ -183,7 +187,6 @@
 <h1>Создайте подарок</h1>
 
 <div class="label-with-hint">
-
   <label for="cardSidesMode">Формат</label>
   
   <div class="hint-wrap">
@@ -580,6 +583,7 @@
       </select>
     </div>
 
+
     <div id="logoPositionWrap">
       <label for="logoPosition">Позиция логотипа</label>
       <select id="logoPosition">
@@ -587,6 +591,7 @@
         <option value="top-right" selected>Справа сверху</option>
       </select>
     </div>
+
 
     <div id="imageSizeWrap">
       <label for="imageSize">Размер изображения</label>
@@ -600,6 +605,57 @@
   <div id="frontSideNotice" class="side-notice hidden">
     У вас пока не заполнена сторона. Добавьте текст или изображение.
   </div>
+
+
+
+
+<!--
+<div class="template-section">
+  <h2>Выберите шаблон</h2>
+  <p class="template-hint">
+    Шаблон задаёт только расположение текста, логотипа и декора.
+  </p>
+
+  <div class="template-list">
+
+    <button class="template-card" type="button" data-template="classic">
+      <div class="template-preview template-preview-classic">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Классик</span>
+    </button>
+
+    <button class="template-card" type="button" data-template="left">
+      <div class="template-preview template-preview-left">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Левый угол</span>
+    </button>
+
+    <button class="template-card" type="button" data-template="right">
+      <div class="template-preview template-preview-right">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Правый угол</span>
+    </button>
+
+  </div>
+
+  <p class="template-error hidden" id="templateError">
+    Сначала выберите шаблон
+  </p>
+</div>
+-->
+
 
   </div>
 </div>
@@ -653,6 +709,8 @@
       </select>
     </div>
 
+
+
     <div id="backLogoPositionWrap">
       <label for="backLogoPosition">Позиция логотипа</label>
       <select id="backLogoPosition">
@@ -660,6 +718,7 @@
         <option value="top-right" selected>Справа сверху</option>
       </select>
     </div>
+
 
     <div id="backImageSizeWrap">
       <label for="backImageSize">Размер изображения</label>
@@ -674,13 +733,63 @@
     <div id="backSideNotice" class="side-notice hidden">
       У вас пока не заполнена сторона. Вы можете добавить текст или, например, изображение для фона.
     </div>
+
+
+<!--
+<div class="template-section">
+  <h2>Выберите шаблон</h2>
+  <p class="template-hint">
+    Шаблон задаёт только расположение текста, логотипа и декора.
+  </p>
+
+  <div class="template-list">
+
+    <button class="template-card" type="button" data-template="classic">
+      <div class="template-preview template-preview-classic">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Классик</span>
+    </button>
+
+    <button class="template-card" type="button" data-template="left">
+      <div class="template-preview template-preview-left">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Левый угол</span>
+    </button>
+
+    <button class="template-card" type="button" data-template="right">
+      <div class="template-preview template-preview-right">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Правый угол</span>
+    </button>
+
+  </div>
+
+  <p class="template-error hidden" id="templateError">
+    Сначала выберите шаблон
+  </p>
+</div>
+-->
+
+
+
   </div>
 </div>
-
     <button id="continueBtn" type="button">Продолжить</button>
-
 </div>
 </section>
+
 
 
 

@@ -116,21 +116,37 @@ const backCardUserBg = document.getElementById("backCardUserBg");
 
 let giftData = {
   logoSrc: "",
-  logoPosition: "top-right",
   imageMode: "logo",
   imageOpacity: "100",
   imageSize: "medium",
 
   backLogoSrc: "",
-  backLogoPosition: "top-right",
   backImageMode: "logo",
   backImageOpacity: "100",
   backImageSize: "medium",
 
-  textColor: "#f8e9ef",
-  fontFamily: "Arial, sans-serif",
-  sidesMode: "single"
+  logoPosition: "top-right",
+  backLogoPosition: "top-right",
+
+  sidesMode: "single",
+
+/*  layoutTemplate: null,
+
+  title: "",
+  message: "",
+  amount: "",
+  address: "",
+  contacts: "",
+  */
+
+  cardColor: "#c9d4ff",
+  textColor: "#506bff",
+  fontFamily: "Arial, sans-serif"
 };
+/*const layoutClasses = ["layout-classic", "layout-left", "layout-right"];
+const logoClasses = ["logo-top-left", "logo-top-right", "logo-top-center"];
+*/
+
 
 
 function generateSharedBackgroundPalette(count = 24) {
@@ -216,8 +232,6 @@ if (hintBtn && hintPopup) {
     hintPopup.classList.remove("show");
   });
 }
-
-
 
 
 
@@ -540,7 +554,7 @@ function updateBackImageControlsUI() {
 
   if (!hasImage) {
     backImageModeWrap.classList.add("hidden");
-    backLogoPositionWrap.classList.add("hidden");
+ //   backLogoPositionWrap.classList.add("hidden");
     backImageSizeWrap.classList.add("hidden");
     backImageOpacityWrap.classList.add("hidden");
     backLogoHint.classList.add("hidden");
@@ -551,11 +565,11 @@ function updateBackImageControlsUI() {
   backImageOpacityWrap.classList.remove("hidden");
 
   if (backImageMode.value === "background") {
-    backLogoPositionWrap.classList.add("hidden");
+//    backLogoPositionWrap.classList.add("hidden");
     backImageSizeWrap.classList.add("hidden");
     backLogoHint.classList.add("hidden");
   } else {
-    backLogoPositionWrap.classList.remove("hidden");
+//    backLogoPositionWrap.classList.remove("hidden");
     backImageSizeWrap.classList.remove("hidden");
     backLogoHint.classList.remove("hidden");
   }
@@ -864,7 +878,7 @@ continueBtn.onclick = async function () {
   giftData.backTitle = backTitleInput.value.trim();
   giftData.backMessage = backMessageInput.value.trim();
   giftData.backAmount = backAmountInput.value.trim();
-  giftData.backLogoPosition = backLogoPosition.value;
+//  giftData.backLogoPosition = backLogoPosition.value;
   giftData.backImageMode = backImageMode.value;
   giftData.backImageOpacity = backImageOpacity.value;
   giftData.backAddress = backAddressInput.value.trim();
@@ -944,7 +958,7 @@ if (backActiveImage) {
     backCardLogoWrap.classList.remove("hidden");
 
     applyBackImageSize(giftData.imageSize);
-    applyBackLogoPosition(giftData.backLogoPosition);
+//    applyBackLogoPosition(giftData.backLogoPosition);
     applyCustomColors(giftData.cardColor, giftData.envelopeColor);
   }
 } else {
@@ -1559,7 +1573,7 @@ async function shareCard() {
 
 async function sendCardToServer() {
   try {
-    const response = await fetch("http://192.168.1.100:5000/api/cards", {
+    const response = await fetch("/api/cards", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -1695,7 +1709,7 @@ registerSubmitBtn.onclick = async function () {
   const email = document.getElementById("registerEmail").value.trim();
   const password = document.getElementById("registerPassword").value.trim();
 
-  const response = await fetch("http://192.168.1.100:5000/api/register", {
+  const response = await fetch("/api/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -1716,7 +1730,7 @@ loginSubmitBtn.onclick = async function () {
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value.trim();
 
-  const response = await fetch("http://192.168.1.100:5000/api/login", {
+  const response = await fetch("/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -1778,12 +1792,106 @@ document.getElementById("startPreviewBtn")?.addEventListener("click", function (
 });
 
 
-window.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("currentScreen");
 
-  if (saved && document.getElementById(saved)) {
-    showScreen(saved);
+window.addEventListener("DOMContentLoaded", function () {
+  const savedScreen = localStorage.getItem("currentScreen");
+
+  const allowedStartScreens = [
+    "previewScreen",
+    "container",
+    "createScreen"
+  ];
+
+  if (savedScreen && allowedStartScreens.includes(savedScreen)) {
+    showScreen(savedScreen);
   } else {
-    showScreen("previewScreen"); // экран по умолчанию
+    showScreen("previewScreen");
   }
 });
+
+
+
+//шаблоны
+/*
+const templates = {
+  classic: {
+    className: "layout-classic",
+    logoPosition: "top-center"
+  },
+  left: {
+    className: "layout-left",
+    logoPosition: "top-right"
+  },
+  right: {
+    className: "layout-right",
+    logoPosition: "top-left"
+  }
+};
+
+const templateClasses = [
+  "layout-classic",
+  "layout-left",
+  "layout-right"
+];
+
+
+
+function applyTemplate(templateKey) {
+  const template = templateMap[templateKey];
+  if (!template) return;
+
+  giftData.layoutTemplate = templateKey;
+
+  giftCard.classList.remove(...layoutClasses);
+  backGiftCard.classList.remove(...layoutClasses);
+
+  giftCard.classList.add(template.layout);
+  backGiftCard.classList.add(template.layout);
+
+  cardLogoWrap.classList.remove(...logoClasses);
+  backCardLogoWrap.classList.remove(...logoClasses);
+
+  cardLogoWrap.classList.add(template.logo);
+  backCardLogoWrap.classList.add(template.logo);
+
+  document.querySelectorAll(".template-card").forEach(card => {
+    card.classList.toggle("active", card.dataset.template === templateKey);
+  });
+
+  localStorage.setItem("giftDraft", JSON.stringify(giftData));
+}
+
+
+
+document.querySelectorAll(".template-card").forEach(card => {
+  card.addEventListener("click", function () {
+    const newTemplate = this.dataset.template;
+
+    if (!giftData.layoutTemplate) {
+      applyTemplate(newTemplate);
+      return;
+    }
+
+    if (giftData.layoutTemplate === newTemplate) return;
+
+    const result = confirm("Применить настройки с новым шаблоном?");
+
+    if (result) {
+      applyTemplate(newTemplate);
+    }
+  });
+});
+
+
+
+continueBtn.addEventListener("click", function () {
+  if (!giftData.layoutTemplate) {
+    document.getElementById("templateError").classList.remove("hidden");
+    return;
+  }
+
+  document.getElementById("templateError").classList.add("hidden");
+
+  showScreen("envelopeScreen");
+});
+*/

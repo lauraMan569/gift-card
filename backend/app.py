@@ -14,7 +14,32 @@ CORS(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CARDS_FILE = os.path.join(BASE_DIR, "cards.json")
-FRONTEND_DIR = os.path.join(BASE_DIR, "..", "frontend")
+
+PROJECT_DIR = os.path.dirname(BASE_DIR)
+
+FRONTEND_DIR = PROJECT_DIR
+VIEW_DIR = os.path.join(PROJECT_DIR, "frontend")
+
+
+
+#Главная страница:
+@app.route("/")
+def index():
+    return send_from_directory(PROJECT_DIR, "index.html")
+
+
+@app.route("/script.js")
+def script():
+    return send_from_directory(PROJECT_DIR, "script.js")
+
+
+@app.route("/style.css")
+def style():
+    return send_from_directory(PROJECT_DIR, "style.css")
+
+
+
+
 
 
 def load_cards():
@@ -42,7 +67,7 @@ def create_card():
 
     return jsonify({
         "id": card_id,
-        "link": f"http://192.168.1.100:5000/card/{card_id}"
+        "link": f"http://{request.host}/card/{card_id}"
     })
 
 
@@ -58,15 +83,10 @@ def get_card_data(card_id):
 
 
 
-@app.route("/style.css")
-def style():
-    return send_from_directory(FRONTEND_DIR, "style.css")
-
 
 @app.route("/view.js")
 def view_script():
-    return send_from_directory(FRONTEND_DIR, "view.js")
-
+    return send_from_directory(VIEW_DIR, "view.js")
 
 
 @app.route("/card/<card_id>", methods=["GET"])
@@ -76,15 +96,7 @@ def get_card(card_id):
     if card_id not in cards:
         return "Карта не найдена", 404
 
-    print("FRONTEND_DIR:", FRONTEND_DIR)
-    print("view exists:", os.path.exists(os.path.join(FRONTEND_DIR, "view.html")))
-
-    return send_from_directory(FRONTEND_DIR, "view.html")
-
-
-
-
-
+    return send_from_directory(VIEW_DIR, "view.html")
 
 
 #вход и регистрация
@@ -172,7 +184,6 @@ def login():
     
 
 #запуск
-
 if __name__ == "__main__":
     print(app.url_map)
     app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=False)
