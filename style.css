@@ -786,7 +786,7 @@ button {
 }
 
 
-/*плашка стороны*/
+/*плашка сторон*/
 .side-notice {
   margin-bottom: 14px;
   padding: 12px 14px;
@@ -798,6 +798,15 @@ button {
   line-height: 1.45;
 }
 
+#backSideNotice2 {
+  background: #fff4f4;
+  border: 1px solid #f6d2d2;
+  color: #7a4a4a;
+}
+
+#backSideNotice2 p {
+  margin: 0;
+}
 
 /*палитры*/
 .palette-section {
@@ -820,7 +829,7 @@ button {
   border-radius: 999px;
 }
 
-.palette-section::before {
+/*.palette-section::before {
   content: "→";
   position: absolute;
   top: 23%;
@@ -833,7 +842,7 @@ button {
   pointer-events: none;
 
   animation: paletteArrow 1.5s ease-in-out infinite;
-}
+}*/
 
 
 .palette-card {
@@ -1647,6 +1656,7 @@ body.no-scroll {
 
 
 
+
 body {
   min-height: 100vh;
 }
@@ -1931,6 +1941,63 @@ button.ghost {
 
 
 
+.forgot-password-btn {
+  width: auto;
+  margin: 8px 0 18px;
+  padding: 0;
+
+  border: none;
+  background: transparent;
+  color: #333;
+
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.forgot-password-btn:hover {
+  color: #506bff;
+  text-decoration: underline;
+}
+
+
+.password-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrap input {
+  width: 100%;
+  padding-right: 48px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+
+  transform: translateY(-50%);
+
+  width: 32px;
+  height: 32px;
+
+  margin: 0;
+  padding: 0;
+
+  border: none;
+  background: transparent;
+  color: #666;
+
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.password-toggle:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+
+
+
 
 
 
@@ -2148,10 +2215,96 @@ button.ghost {
 
 
 
+.account-menu-btn {
+  width: auto;
+  padding: 8px 14px;
+  margin: 0 0 18px auto;
+
+  display: block;
+
+  border: 1px solid #d7e1ff;
+  border-radius: 999px;
+
+  background: #f7f9ff;
+  color: #4a597a;
+
+  font-size: 14px;
+}
+
+.account-card {
+  position: relative;
+}
+
+.account-panel {
+  margin-bottom: 22px;
+  padding: 14px 16px;
+
+  border-radius: 14px;
+  background: #f7f9ff;
+  border: 1px solid #d7e1ff;
+}
+
+.account-panel p {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #4a597a;
+}
+
+.account-panel p:last-child {
+  margin-bottom: 0;
+}
 
 
 
-/*адаптивные размеры. 430px*/
+
+
+.payment-subtitle {
+  margin-bottom: 24px;
+  color: #5a5a5a;
+  line-height: 1.5;
+}
+
+.payment-packs {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.payment-pack {
+  padding: 18px;
+  border-radius: 18px;
+
+  border: 1px solid #d7e1ff;
+  background: #f7f9ff;
+
+  text-align: left;
+
+  transition: 0.2s ease;
+}
+
+.payment-pack:hover {
+  transform: translateY(-2px);
+  border-color: #8dacff;
+}
+
+.payment-pack strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 18px;
+}
+
+.payment-pack span {
+  color: #506bff;
+  font-weight: 600;
+}
+
+
+
+
+
+
+
+/*адаптивные размеры. 430px (решить какой размер поставить и еще раз проверить на телефоне и планшете)*/ 
 @media (max-width: 668px) {
 :root {
   --mobile-panel-width: 360px;

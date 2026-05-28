@@ -134,7 +134,10 @@
 
                 <input id="registerName" type="text" placeholder="Имя" />
                 <input id="registerEmail" type="email" placeholder="Email" />
-                <input id="registerPassword" type="password" placeholder="Пароль" />
+                <div class="password-wrap">
+                  <input id="registerPassword" type="password" placeholder="Пароль" />
+                  <button class="password-toggle" type="button" data-target="registerPassword">👁</button>
+                </div>
                 <button id="registerSubmitBtn" type="button">Зарегистрироваться</button>
 
                 <button id="skipAuthBtn" type="button" class="skip-btn">Пропустить</button>
@@ -146,8 +149,14 @@
                 <h1>Войти</h1>
 
                 <input id="loginEmail" type="email" placeholder="Email" />
-                <input id="loginPassword" type="password" placeholder="Пароль" />
-                <a href="#">Забыли пароль?</a>
+                <div class="password-wrap">
+                  <input id="loginPassword" type="password" placeholder="Пароль" />
+                  <button class="password-toggle" type="button" data-target="loginPassword">👁</button>
+                </div>
+
+                <button class="forgot-password-btn" id="forgotPasswordBtn" type="button">
+                  Забыли пароль?
+                </button>
                 <button id="loginSubmitBtn" type="button">Войти</button>
 
                 <button id="skipAuthBtn2" type="button" class="skip-btn">Пропустить</button>
@@ -181,6 +190,10 @@
 <section id= "createScreen" class="screen hidden">
 
 <div class="create-card">
+
+<button id="openAccountBtn" type="button" class="account-menu-btn">
+  Личный кабинет
+</button>
 
 <button class="back-btn" id="backToAuth">←</button>
 
@@ -656,7 +669,6 @@
 </div>
 -->
 
-
   </div>
 </div>
 
@@ -729,10 +741,11 @@
       </select>
     </div>
 
-
     <div id="backSideNotice" class="side-notice hidden">
-      У вас пока не заполнена сторона. Вы можете добавить текст или, например, изображение для фона.
+      У вас пока не заполнена сторона. Добавьте текст или изображение.
     </div>
+
+    <div id="backSideNotice2" class="side-notice hidden"></div>
 
 
 <!--
@@ -794,6 +807,26 @@
 
 
 
+
+<section id="accountScreen" class="screen hidden">
+  <div class="create-card account-card">
+    <button class="back-btn" id="backToCreateFromAccount">←</button>
+
+    <h1>Личный кабинет</h1>
+
+    <div class="account-panel">
+      <p id="accountEmail">Аккаунт: гость</p>
+      <p id="freeCardsInfo">Бесплатные карты: 0/3</p>
+      <p id="paidCardsInfo">Оплаченные карты: 0</p>
+    </div>
+
+    <button id="openPaymentBtn" type="button">
+      Купить карты
+    </button>
+  </div>
+</section>
+
+
   <!--конверт-->
   <section id="envelopeScreen" class="screen hidden">
 
@@ -817,6 +850,50 @@
     <button id="openBtn" type="button">Открыть</button>
   </div>
   </section>
+
+
+
+
+<section id="paymentScreen" class="screen hidden">
+
+  <div class="create-card payment-card">
+
+    <button class="back-btn" id="backToAccountFromPayment">←</button>
+
+    <h1>Покупка карт</h1>
+
+    <p class="payment-subtitle">
+      Бесплатный лимит закончился.
+      Выберите пакет карт.
+    </p>
+
+    <div class="payment-packs">
+
+      <button class="payment-pack" data-cards="1" data-price="10">
+        <strong>1 карта</strong>
+        <span>10 ₽</span>
+      </button>
+
+      <button class="payment-pack" data-cards="2" data-price="20">
+        <strong>2 карты</strong>
+        <span>20 ₽</span>
+      </button>
+
+      <button class="payment-pack" data-cards="5" data-price="50">
+        <strong>5 карт</strong>
+        <span>50 ₽</span>
+      </button>
+
+      <button class="payment-pack" data-cards="10" data-price="100">
+        <strong>10 карт</strong>
+        <span>100 ₽</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+
 
 
 

@@ -84,6 +84,7 @@ def get_card_data(card_id):
 
 
 
+
 @app.route("/view.js")
 def view_script():
     return send_from_directory(VIEW_DIR, "view.js")
@@ -99,8 +100,10 @@ def get_card(card_id):
     return send_from_directory(VIEW_DIR, "view.html")
 
 
-#вход и регистрация
 
+
+
+#вход и регистрация
 def init_db():
     conn = sqlite3.connect("users.db")
     cur = conn.cursor()
@@ -109,7 +112,10 @@ def init_db():
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT UNIQUE NOT NULL,
-            password_hash TEXT NOT NULL
+            password_hash TEXT NOT NULL,
+                
+            free_cards_used INTEGER DEFAULT 0,
+            paid_cards_balance INTEGER DEFAULT 0
         )
     """)
 
@@ -165,7 +171,7 @@ def login():
     cur = conn.cursor()
 
     cur.execute(
-        "SELECT password_hash FROM users WHERE email = ?",
+        "SELECT id, email, password_hash, free_cards_used, paid_cards_balance FROM users WHERE email = ?",
         (email,)
     )
 
@@ -175,10 +181,16 @@ def login():
     if not user:
         return {"error": "Пользователь не найден"}, 404
 
-    password_hash = user[0]
+    password_hash = user[2]
 
     if check_password_hash(password_hash, password):
-        return {"message": "Вход выполнен"}, 200
+        return {
+            "message": "Вход выполнен",
+            "user_id": user[0],
+            "email": user[1],
+            "free_cards_used": user[3],
+            "paid_cards_balance": user[4]
+        }, 200
     else:
         return {"error": "Неверный пароль"}, 401
     

@@ -360,10 +360,6 @@ button {
 }
 
 
-
-
-
-
 /* Финальная карта */
 .card {
   position: relative;
@@ -813,8 +809,32 @@ button {
   gap: 12px;
   overflow-x: auto;
   padding-bottom: 6px;
-  -webkit-overflow-scrolling: touch;
 }
+
+.palette-list::-webkit-scrollbar {
+  height: 8px;
+}
+
+.palette-list::-webkit-scrollbar-thumb {
+  background: rgba(120, 130, 180, 0.25);
+  border-radius: 999px;
+}
+
+.palette-section::before {
+  content: "→";
+  position: absolute;
+  top: 23%;
+
+  transform: translateY(-50%);
+  font-size: 22px;
+  font-weight: 600;
+  color: rgba(0, 5, 33, 0.75);
+
+  pointer-events: none;
+
+  animation: paletteArrow 1.5s ease-in-out infinite;
+}
+
 
 .palette-card {
   flex: 0 0 auto;
@@ -1076,7 +1096,7 @@ button {
 .preview-divider {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
   margin: 30px 0 18px;
   color: #7a7f8c;
   font-size: 13px;
@@ -1097,6 +1117,14 @@ button {
 }
 
 
+.preview-divider-other {
+  align-items: center;
+  color: #7a7f8c;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
 
 
 
@@ -1106,7 +1134,7 @@ button {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 102px;
-  margin-bottom: 28px;
+  margin-bottom: 58px;
   position: relative;
 }
 
@@ -1619,8 +1647,6 @@ body.no-scroll {
 
 
 
-
-
 body {
   min-height: 100vh;
 }
@@ -1802,6 +1828,7 @@ button.ghost {
     transform: translateX(-100%);
 }
 
+
 /* Bring signup over signin */
 .container.right-panel-active .sign-up-container {
     transform: translateX(100%);
@@ -1840,9 +1867,6 @@ button.ghost {
 
 
 
-
-
-
 .skip-btn {
     border-radius: 20px;
     border: 1px solid #848484;
@@ -1858,6 +1882,51 @@ button.ghost {
   transform: scale(.95);
 }
 
+.create-card h1 {
+  padding-left: 48px;
+}
+
+.container,
+.create-card {
+  position: relative;
+}
+
+.back-btn {
+
+  position: absolute;
+  top: 0;
+  left: 20px;
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  background: rgba(255,255,255,0.9);
+  border-radius: 10px;
+  border: none;
+  color: #000000;
+
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+
+  cursor: pointer;
+  z-index: 10;
+
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  background: #f2f2f2;
+}
+
+.back-btn:active {
+  transform: scale(0.96);
+}
 
 
 
@@ -1867,9 +1936,223 @@ button.ghost {
 
 
 
+/*
+.template-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
 
-/*адаптивные размеры*/
-@media (max-width: 430px) {
+.template-card {
+  margin: 0;
+  padding: 12px;
+  border: 2px solid #e6e6e6;
+  border-radius: 16px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.template-card.active {
+  border-color: #506bff;
+  box-shadow: 0 0 0 4px rgba(80, 107, 255, 0.14);
+}
+
+.template-preview {
+  position: relative;
+  height: 120px;
+  border-radius: 14px;
+  background: #f7f1ec;
+  overflow: hidden;
+}
+
+.tp-logo {
+  position: absolute;
+  width: 34px;
+  height: 18px;
+  border-radius: 6px;
+  background: #c9b39e;
+}
+
+.tp-line {
+  position: absolute;
+  height: 8px;
+  border-radius: 20px;
+  background: #8b6a55;
+}
+
+.tp-line-title {
+  width: 70px;
+}
+
+.tp-line-long {
+  width: 110px;
+}
+
+.tp-line-short {
+  width: 82px;
+}
+
+/* классик */
+/*
+.template-preview-classic .tp-logo {
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.template-preview-classic .tp-line-title {
+  top: 46px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.template-preview-classic .tp-line-long {
+  top: 66px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.template-preview-classic .tp-line-short {
+  top: 86px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* левый угол */
+/*
+.template-preview-left .tp-logo {
+  top: 14px;
+  right: 14px;
+}
+
+.template-preview-left .tp-line-title {
+  top: 42px;
+  left: 16px;
+}
+
+.template-preview-left .tp-line-long {
+  top: 62px;
+  left: 16px;
+}
+
+.template-preview-left .tp-line-short {
+  top: 82px;
+  left: 16px;
+}
+
+/* правый угол */
+/*
+.template-preview-right .tp-logo {
+  top: 14px;
+  left: 14px;
+}
+
+.template-preview-right .tp-line-title {
+  top: 42px;
+  right: 16px;
+}
+
+.template-preview-right .tp-line-long {
+  top: 62px;
+  right: 16px;
+}
+
+.template-preview-right .tp-line-short {
+  top: 82px;
+  right: 16px;
+}
+
+*/
+
+
+/*
+.card.layout-classic .card-logo-wrap {
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.card.layout-classic .card-content {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.card.layout-left .card-logo-wrap {
+  top: 22px;
+  right: 28px;
+}
+
+.card.layout-left .card-content {
+  align-items: flex-start;
+  text-align: left;
+  justify-content: center;
+  padding: 42px 56px;
+}
+
+.card.layout-right .card-logo-wrap {
+  top: 22px;
+  left: 28px;
+}
+
+.card.layout-right .card-content {
+  align-items: flex-end;
+  text-align: right;
+  justify-content: center;
+  padding: 42px 56px;
+}
+
+
+
+
+
+
+
+
+
+.live-preview-card {
+  width: 520px;
+  height: 310px;
+  margin: 20px auto;
+}
+
+.layout-center .card-content {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.layout-left .card-content {
+  text-align: left;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 56px;
+}
+
+.layout-beauty .card-content {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 64px;
+}
+
+.layout-beauty .title {
+  letter-spacing: 8px;
+  text-transform: uppercase;
+}
+
+.layout-card.active {
+  border: 2px solid #506bff;
+}
+  */
+
+
+
+
+
+
+/*адаптивные размеры. 430px*/
+@media (max-width: 668px) {
 :root {
   --mobile-panel-width: 360px;
   --mobile-panel-height: 560px;
@@ -2001,5 +2284,170 @@ button.ghost {
     left: 50%;
     transform: translateX(-50%);
     bottom: var(--mobile-actions-bottom);
+  }
+
+
+
+
+
+
+    #container {
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  #container .form-container {
+    position: static;
+    width: 100%;
+    height: auto;
+    transform: none;
+    opacity: 1;
+    z-index: 1;
+  }
+
+  #container .sign-up-container,
+  #container .sign-in-container {
+    display: none;
+  }
+
+  #container.right-panel-active .sign-up-container {
+    display: block;
+  }
+
+  #container:not(.right-panel-active) .sign-in-container {
+    display: block;
+  }
+
+  #container form {
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    padding: 80px 24px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #container form h1 {
+    font-size: 32px;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  #container input {
+    width: 100%;
+    height: 54px;
+    font-size: 16px;
+  }
+
+  #container button {
+    width: 100%;
+    height: 52px;
+    font-size: 18px;
+  }
+
+  #container .overlay-container {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+
+  .overlay-container::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: 12px 24px 18px;
+  background: rgba(0, 0, 0, 0.454);
+}
+
+  
+
+  #container .overlay {
+    position: static;
+    width: 100%;
+    height: auto;
+    transform: none;
+    background: transparent;
+  }
+
+  #container .overlay-panel {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 0 24px 40px;
+    transform: none;
+    background: transparent;
+    color: #222;
+  }
+
+  #container .overlay-panel h1,
+  #container .overlay-panel p {
+    display: none;
+  }
+
+  #container .ghost {
+    border: 1px solid #506bff;
+    background: transparent;
+    color: #506bff;
+  }
+
+  #container .overlay-left,
+  #container .overlay-right {
+    display: none;
+  }
+
+  #container.right-panel-active .overlay-left {
+    display: block;
+  }
+
+  #container:not(.right-panel-active) .overlay-right {
+    display: block;
+  }
+
+  #container.right-panel-active .overlay-right {
+  display: none !important;
+}
+
+#container:not(.right-panel-active) .overlay-left {
+  display: none !important;
+}
+
+  /*
+  .back-btn {
+    top: 16px;
+    left: 16px;
+    z-index: 50;
+  }
+
+
+  #createScreen .back-btn {
+    left: 18px;
+  }
+*/
+
+  #container .back-btn {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    font-size: 18px;
+    top: 80px;
+    left: 45px;
+  }
+
+  /* Move signin to right */
+  .container.right-panel-active .sign-in-container {
+      transform: none;
+  }
+
+  /* Move overlay to left */
+  .container.right-panel-active .overlay-container {
+      transform: none;
   }
 }

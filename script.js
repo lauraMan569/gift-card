@@ -2,6 +2,7 @@ const createScreen = document.getElementById("createScreen");
 const envelopeScreen = document.getElementById("envelopeScreen");
 const frontCardScreen = document.getElementById("frontCardScreen");
 const backCardScreen = document.getElementById("backCardScreen");
+const accountScreen = document.getElementById("accountScreen");
 
 const continueBtn = document.getElementById("continueBtn");
 const openBtn = document.getElementById("openBtn");
@@ -79,6 +80,7 @@ const cardSidesMode = document.getElementById("cardSidesMode");
 const backSideEditor = document.getElementById("backSideEditor");
 
 const backSideNotice = document.getElementById("backSideNotice");
+const backSideNotice2 = document.getElementById("backSideNotice2");
 
 const backTitleInput = document.getElementById("backTitleInput");
 const backMessageInput = document.getElementById("backMessageInput");
@@ -369,7 +371,6 @@ function updateBackSideNotice() {
   }
 }
 
-
 titleInput.addEventListener("input", updateFrontSideNotice);
 messageInput.addEventListener("input", updateFrontSideNotice);
 amountInput.addEventListener("input", updateFrontSideNotice);
@@ -401,6 +402,61 @@ function updateFrontSideNotice() {
     frontSideNotice.classList.add("hidden");
   }
 }
+
+
+
+function checkBackSideDifferences() {
+  if (cardSidesMode.value !== "double") {
+    backSideNotice2.classList.add("hidden");
+    return;
+  }
+
+  const frontData = [
+    amountInput.value.trim(),
+    addressInput.value.trim(),
+    contactsInput.value.trim()
+  ];
+
+  const backData = [
+    backAmountInput.value.trim(),
+    backAddressInput.value.trim(),
+    backContactsInput.value.trim()
+  ];
+
+  const hasDifference =
+    frontData[0] !== backData[0] ||
+    frontData[1] !== backData[1] ||
+    frontData[2] !== backData[2];
+
+  if (hasDifference) {
+    backSideNotice2.classList.remove("hidden");
+
+    backSideNotice2.innerHTML = `
+      <p>
+        Проверьте данные второй стороны.
+        Сумма, адрес или контакты отличаются от первой стороны.
+      </p>`;
+  } else {
+    backSideNotice2.classList.add("hidden");
+  }
+}
+
+[
+  amountInput,
+  addressInput,
+  contactsInput,
+  backAmountInput,
+  backAddressInput,
+  backContactsInput,
+  cardSidesMode
+].forEach(el => {
+  el.addEventListener("input", checkBackSideDifferences);
+  el.addEventListener("change", checkBackSideDifferences);
+});
+
+checkBackSideDifferences();
+
+
 
 
 
@@ -554,7 +610,7 @@ function updateBackImageControlsUI() {
 
   if (!hasImage) {
     backImageModeWrap.classList.add("hidden");
- //   backLogoPositionWrap.classList.add("hidden");
+    backLogoPositionWrap.classList.add("hidden");
     backImageSizeWrap.classList.add("hidden");
     backImageOpacityWrap.classList.add("hidden");
     backLogoHint.classList.add("hidden");
@@ -565,11 +621,11 @@ function updateBackImageControlsUI() {
   backImageOpacityWrap.classList.remove("hidden");
 
   if (backImageMode.value === "background") {
-//    backLogoPositionWrap.classList.add("hidden");
+    backLogoPositionWrap.classList.add("hidden");
     backImageSizeWrap.classList.add("hidden");
     backLogoHint.classList.add("hidden");
   } else {
-//    backLogoPositionWrap.classList.remove("hidden");
+    backLogoPositionWrap.classList.remove("hidden");
     backImageSizeWrap.classList.remove("hidden");
     backLogoHint.classList.remove("hidden");
   }
@@ -1686,20 +1742,6 @@ signIn.onclick = function () {
 };
 
 
-/*authFormButtons.forEach(function (button) {
-  button.type = "button";
-
-  button.onclick = function (event) {
-    event.preventDefault();
-
-    container.classList.add("hidden");
-    createScreen.classList.remove("hidden");
-  };
-});*/
-
-
-
-
 
 
 const registerSubmitBtn = document.getElementById("registerSubmitBtn");
@@ -1741,11 +1783,41 @@ loginSubmitBtn.onclick = async function () {
   const result = await response.json();
 
   if (response.ok) {
+    localStorage.setItem("user", JSON.stringify(result));
+    updateAccountPanel();
     showScreen("createScreen");
   } else {
     alert(result.error);
   }
 };
+
+
+
+
+document.querySelectorAll(".password-toggle").forEach(button => {
+  button.addEventListener("click", function () {
+    const input = document.getElementById(this.dataset.target);
+
+    if (!input) return;
+
+    if (input.type === "password") {
+      input.type = "text";
+      this.textContent = "🙈";
+    } else {
+      input.type = "password";
+      this.textContent = "👁";
+    }
+  });
+});
+
+
+const forgotPasswordBtn = document.getElementById("forgotPasswordBtn");
+
+if (forgotPasswordBtn) {
+  forgotPasswordBtn.onclick = function () {
+    alert("Восстановление пароля пока не подключено.");
+  };
+}
 
 
 
@@ -1758,10 +1830,6 @@ function goToScreen() {
 
 if (skip1) skip1.onclick = goToScreen;
 if (skip2) skip2.onclick = goToScreen;
-
-
-
-
 
 
 function showScreen(screenId) {
@@ -1793,13 +1861,52 @@ document.getElementById("startPreviewBtn")?.addEventListener("click", function (
 
 
 
+const accountEmail = document.getElementById("accountEmail");
+const freeCardsInfo = document.getElementById("freeCardsInfo");
+const paidCardsInfo = document.getElementById("paidCardsInfo");
+
+function updateAccountPanel() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (!user) {
+    accountEmail.textContent = "Аккаунт: гость";
+    freeCardsInfo.textContent = "Бесплатные карты: 0/3";
+    paidCardsInfo.textContent = "Оплаченные карты: 0";
+    return;
+  }
+
+  accountEmail.textContent = `Аккаунт: ${user.email}`;
+  freeCardsInfo.textContent = `Бесплатные карты: ${user.free_cards_used}/3`;
+  paidCardsInfo.textContent = `Оплаченные карты: ${user.paid_cards_balance}`;
+}
+
+
+
+const openAccountBtn = document.getElementById("openAccountBtn");
+const backToCreateFromAccount = document.getElementById("backToCreateFromAccount");
+
+if (openAccountBtn) {
+  openAccountBtn.onclick = function () {
+    updateAccountPanel();
+    showScreen("accountScreen");
+  };
+}
+
+if (backToCreateFromAccount) {
+  backToCreateFromAccount.onclick = function () {
+    showScreen("createScreen");
+  };
+}
+
+
 window.addEventListener("DOMContentLoaded", function () {
   const savedScreen = localStorage.getItem("currentScreen");
 
   const allowedStartScreens = [
     "previewScreen",
     "container",
-    "createScreen"
+    "createScreen",
+    "accountScreen"
   ];
 
   if (savedScreen && allowedStartScreens.includes(savedScreen)) {
@@ -1810,6 +1917,57 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
+
+
+
+const paymentScreen = document.getElementById("paymentScreen");
+
+const openPaymentBtn = document.getElementById("openPaymentBtn");
+const backToAccountFromPayment = document.getElementById("backToAccountFromPayment");
+
+if (openPaymentBtn) {
+  openPaymentBtn.onclick = function () {
+    showScreen("paymentScreen");
+  };
+}
+
+if (backToAccountFromPayment) {
+  backToAccountFromPayment.onclick = function () {
+    showScreen("accountScreen");
+  };
+}
+
+
+const paymentPacks =
+  document.querySelectorAll(".payment-pack");
+
+paymentPacks.forEach(pack => {
+
+  pack.addEventListener("click", function () {
+
+    const cards =
+      Number(this.dataset.cards);
+
+    const user =
+      JSON.parse(localStorage.getItem("user"));
+
+    if (!user) return;
+
+    user.paid_cards_balance += cards;
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(user)
+    );
+
+    updateAccountPanel();
+
+    alert(`Добавлено карт: ${cards}`);
+
+    showScreen("accountScreen");
+  });
+});
 
 //шаблоны
 /*
