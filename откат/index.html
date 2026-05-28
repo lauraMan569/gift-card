@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gift Card</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+
+  <section id="previewScreen" class="screen preview-screen hidden">
+
+
+  <div class="preview-bg constructor-bg">
+
+    <div class="bg-grid"></div>
+
+      <div class="bg-diagonal d1"></div>
+      <div class="bg-diagonal d2"></div>
+      <div class="bg-diagonal d3"></div>
+
+      <div class="bg-diagonal d4"></div>
+      <div class="bg-diagonal d5"></div>
+      <div class="bg-diagonal d6"></div>
+
+      <div class="bg-diagonal d7 thin"></div>
+      <div class="bg-diagonal d8 thin"></div>
+      <div class="bg-diagonal d9"></div>
+
+  </div>
+
+  <div class="preview-card">
+    <div class="preview-top-content">
+      <div class="preview-badge">Онлайн-конструктор</div>
+
+      <h1 class="preview-title">
+        Создавайте подарки,<br>
+        которые хочется открыть
+      </h1>
+      <br>
+    </div>
+
+    <div class="preview-visual">
+      <div class="preview-envelope">
+        <div class="preview-envelope-back"></div>
+        <div class="preview-sheet preview-sheet-floral"></div>
+        <div class="preview-envelope-front"></div>
+        <div class="preview-envelope-flap"></div>
+      </div>
+    </div>
+
+
+    <div class="preview-features">
+      <span>Красивая анимация</span>
+      <span>Любые цвета</span>
+      <span>Ваши логотипы и изображения</span>
+    </div>
+
+
+<div class="preview-divider">
+  <span>Каждый конверт - отдельное настроение и стиль</span>
+</div>
+
+<div class="preview-divider-other">
+  <span>Попробуйте на них нажать</span>
+</div>
+
+
+<div class="preview-examples-scroll">
+  <div class="preview-example-envelope">
+    <div class="mini-preview-envelope">
+      <div class="mini-preview-back"></div>
+      <div class="mini-preview-card"></div>
+      <div class="mini-preview-front"></div>
+      <div class="mini-preview-flap"></div>
+    </div>
+  </div>
+
+  <div class="preview-example-envelope">
+    <div class="mini-preview-envelope">
+      <div class="mini-preview-back"></div>
+      <div class="mini-preview-card"></div>
+      <div class="mini-preview-front"></div>
+      <div class="mini-preview-flap"></div>
+    </div>
+  </div>
+
+  <div class="preview-example-envelope">
+    <div class="mini-preview-envelope">
+      <div class="mini-preview-back"></div>
+      <div class="mini-preview-card"></div>
+      <div class="mini-preview-front"></div>
+      <div class="mini-preview-flap"></div>
+    </div>
+  </div>
+
+  <div class="preview-example-envelope">
+    <div class="mini-preview-envelope">
+      <div class="mini-preview-back"></div>
+      <div class="mini-preview-card"></div>
+      <div class="mini-preview-front"></div>
+      <div class="mini-preview-flap"></div>
+    </div>
+  </div>
+
+  <div class="preview-example-envelope">
+    <div class="mini-preview-envelope">
+      <div class="mini-preview-back"></div>
+      <div class="mini-preview-card"></div>
+      <div class="mini-preview-front"></div>
+      <div class="mini-preview-flap"></div>
+    </div>
+  </div>
+</div>
+
+    <button id="startPreviewBtn" class="preview-start-btn" type="button">
+      Начать
+    </button>
+  </div>
+</section>
+
+
+
+<section id="container" class="container screen hidden">
+
+<button class="back-btn" id="backToPreview">←</button>
+
+        <div class="form-container sign-up-container">
+
+            <form action="#">
+                <h1>Создать аккаунт</h1>
+
+                <input id="registerName" type="text" placeholder="Имя" />
+                <input id="registerEmail" type="email" placeholder="Email" />
+                <div class="password-wrap">
+                  <input id="registerPassword" type="password" placeholder="Пароль" />
+                  <button class="password-toggle" type="button" data-target="registerPassword">👁</button>
+                </div>
+                <button id="registerSubmitBtn" type="button">Зарегистрироваться</button>
+
+                <button id="skipAuthBtn" type="button" class="skip-btn">Пропустить</button>
+            </form>
+        </div>
+
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Войти</h1>
+
+                <input id="loginEmail" type="email" placeholder="Email" />
+                <div class="password-wrap">
+                  <input id="loginPassword" type="password" placeholder="Пароль" />
+                  <button class="password-toggle" type="button" data-target="loginPassword">👁</button>
+                </div>
+
+                <button class="forgot-password-btn" id="forgotPasswordBtn" type="button">
+                  Забыли пароль?
+                </button>
+                <button id="loginSubmitBtn" type="button">Войти</button>
+
+                <button id="skipAuthBtn2" type="button" class="skip-btn">Пропустить</button>
+
+            </form>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+
+                <div class="overlay-panel overlay-left">
+                    <h1>С возвращением!</h1>
+                    <p>Чтобы продолжить работу, войдите в свой аккаунт</p>
+                    <button class="ghost" id="signIn">Войти</button>
+                </div>
+
+                <div class="overlay-panel overlay-right">
+                    <h1>Привет!</h1>
+                    <p>Введите свои данные и начните пользоваться сервисом</p>
+                    <button class="ghost" id="signUp">Создать аккаунт</button>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+
+
+
+
+<section id= "createScreen" class="screen hidden">
+
+<div class="create-card">
+
+<button id="openAccountBtn" type="button" class="account-menu-btn">
+  Личный кабинет
+</button>
+
+<button class="back-btn" id="backToAuth">←</button>
+
+<h1>Создайте подарок</h1>
+
+<div class="label-with-hint">
+  <label for="cardSidesMode">Формат</label>
+  
+  <div class="hint-wrap">
+    <span class="hint-icon" id="formatHint">?</span>
+
+    <div class="hint-popup" id="formatHintPopup">
+      <strong>Формат</strong><br>
+      Определяет, будет ли у карты одна или две стороны.<br><br>
+      Односторонний - только одна сторона.<br><br>
+      Двусторонний - есть дополнительная сторона,<br>
+      которую можно заполнить.
+    </div>
+  </div>
+</div>
+
+<select id="cardSidesMode">
+  <option value="single" selected>Односторонний</option>
+  <option value="double">Двусторонний</option>
+</select>
+  
+
+    <label for="giftType">Тип подарка</label>
+    <select id="giftType">
+      <option value="">—</option>
+      <option value="card">Подарочная карта</option>
+      <option value="certificate">Сертификат</option>
+    </select>
+
+
+
+
+
+
+<div class="palette-section">
+  <label>Готовые палитры</label>
+
+  <div class="palette-list" id="paletteList">
+
+
+<button class="palette-card" type="button"
+  data-card="#f7f7f7"
+  data-envelope="#b8b8b8"
+  data-text="#2f2f2f">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f7f7f7;"></span>
+    <span class="palette-color" style="background:#b8b8b8;"></span>
+    <span class="palette-color" style="background:#2f2f2f;"></span>
+  </span>
+
+  <span class="palette-name">Минималистичная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#f4f1e8"
+  data-envelope="#d7c3a5"
+  data-text="#6b4f3a">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f4f1e8;"></span>
+    <span class="palette-color" style="background:#d7c3a5;"></span>
+    <span class="palette-color" style="background:#6b4f3a;"></span>
+  </span>
+
+  <span class="palette-name">Тёплая бежевая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#e8f7f1"
+  data-envelope="#9dd9c5"
+  data-text="#2f6f5e">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#e8f7f1;"></span>
+    <span class="palette-color" style="background:#9dd9c5;"></span>
+    <span class="palette-color" style="background:#2f6f5e;"></span>
+  </span>
+
+  <span class="palette-name">Мятная</span>
+</button>
+
+<button class="palette-card" type="button"
+  data-card="#2f3142"
+  data-envelope="#444a68"
+  data-text="#f8e9ef">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#2f3142;"></span>
+    <span class="palette-color" style="background:#444a68;"></span>
+    <span class="palette-color" style="background:#f8e9ef;"></span>
+  </span>
+
+  <span class="palette-name">Тёмная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#fff4e6"
+  data-envelope="#f4c27a"
+  data-text="#8b4f1d">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#fff4e6;"></span>
+    <span class="palette-color" style="background:#f4c27a;"></span>
+    <span class="palette-color" style="background:#8b4f1d;"></span>
+  </span>
+
+  <span class="palette-name">Карамельная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#ffe8ef"
+  data-envelope="#ff9bb8"
+  data-text="#9f2f56">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#ffe8ef;"></span>
+    <span class="palette-color" style="background:#ff9bb8;"></span>
+    <span class="palette-color" style="background:#9f2f56;"></span>
+  </span>
+
+  <span class="palette-name">Ягодная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#f3e8ff"
+  data-envelope="#c6a6ff"
+  data-text="#5c2d91">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f3e8ff;"></span>
+    <span class="palette-color" style="background:#c6a6ff;"></span>
+    <span class="palette-color" style="background:#5c2d91;"></span>
+  </span>
+
+  <span class="palette-name">Лавандовая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#e9f7ff"
+  data-envelope="#7cc8f8"
+  data-text="#1f5f8b">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#e9f7ff;"></span>
+    <span class="palette-color" style="background:#7cc8f8;"></span>
+    <span class="palette-color" style="background:#1f5f8b;"></span>
+  </span>
+
+  <span class="palette-name">Небесная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#f5fff0"
+  data-envelope="#bfdc7a"
+  data-text="#5c6f2a">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f5fff0;"></span>
+    <span class="palette-color" style="background:#bfdc7a;"></span>
+    <span class="palette-color" style="background:#5c6f2a;"></span>
+  </span>
+
+  <span class="palette-name">Фисташковая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#f6ede3"
+  data-envelope="#cfa77a"
+  data-text="#6f4728">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f6ede3;"></span>
+    <span class="palette-color" style="background:#cfa77a;"></span>
+    <span class="palette-color" style="background:#6f4728;"></span>
+  </span>
+
+  <span class="palette-name">Кофейная</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#fff1eb"
+  data-envelope="#ffb38a"
+  data-text="#a64b2a">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#fff1eb;"></span>
+    <span class="palette-color" style="background:#ffb38a;"></span>
+    <span class="palette-color" style="background:#a64b2a;"></span>
+  </span>
+
+  <span class="palette-name">Персиковая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#f4f7fb"
+  data-envelope="#aab7cf"
+  data-text="#44506a">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#f4f7fb;"></span>
+    <span class="palette-color" style="background:#aab7cf;"></span>
+    <span class="palette-color" style="background:#44506a;"></span>
+  </span>
+
+  <span class="palette-name">Серо-голубая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#1f2233"
+  data-envelope="#31374f"
+  data-text="#f1d7a8">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#1f2233;"></span>
+    <span class="palette-color" style="background:#31374f;"></span>
+    <span class="palette-color" style="background:#f1d7a8;"></span>
+  </span>
+
+  <span class="palette-name">Ночная золотая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#2a1f2f"
+  data-envelope="#51365c"
+  data-text="#f7d8ff">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#2a1f2f;"></span>
+    <span class="palette-color" style="background:#51365c;"></span>
+    <span class="palette-color" style="background:#f7d8ff;"></span>
+  </span>
+
+  <span class="palette-name">Сливовая</span>
+</button>
+
+
+<button class="palette-card" type="button"
+  data-card="#0f2d2b"
+  data-envelope="#1f5a55"
+  data-text="#d8f3ee">
+
+  <span class="palette-preview">
+    <span class="palette-color" style="background:#0f2d2b;"></span>
+    <span class="palette-color" style="background:#1f5a55;"></span>
+    <span class="palette-color" style="background:#d8f3ee;"></span>
+  </span>
+
+  <span class="palette-name">Изумрудная</span>
+</button>
+
+  </div>
+</div>
+
+
+
+
+<div class="palette-section special-palettes">
+  <label>Специальные палитры</label>
+
+  <div class="palette-list">
+
+    <!-- Prime Detailing -->
+    <button class="palette-card special" type="button"
+      data-card="#1a1a1a"
+      data-envelope="#ff7a00"
+      data-text="#ffffff">
+
+      <span class="palette-preview">
+        <span class="palette-color" style="background:#1a1a1a;"></span>
+        <span class="palette-color" style="background:#ff7a00;"></span>
+        <span class="palette-color" style="background:#ffffff;"></span>
+      </span>
+
+      <span class="palette-name">Prime Detailing</span>
+    </button>
+
+    <!-- Интерьеры будущего -->
+    <button class="palette-card special" type="button"
+      data-card="#ffffff"
+      data-envelope="#8b1e2d"
+      data-text="#5a0f18">
+
+      <span class="palette-preview">
+        <span class="palette-color" style="background:#f4f1ec;"></span>
+        <span class="palette-color" style="background:#be241f;"></span>
+        <span class="palette-color" style="background:#a02925;"></span>
+      </span>
+
+      <span class="palette-name">Интерьеры будущего</span>
+    </button>
+
+  </div>
+</div>
+
+
+
+<div class="palette-actions">
+  <button type="button" id="autoPaletteBtn">Подобрать палитру</button>
+  <button type="button" id="randomColorsBtn">Случайные цвета</button>
+</div>
+<div class="palette-hint">
+  Подберите стиль автоматически или попробуйте случайные сочетания
+</div>
+
+
+    
+    <div class="color-grid">
+      <div class="color-field">
+        <label for="cardColorInput">Цвет карты/сертификата</label>
+        <input id="cardColorInput" type="color">
+      </div>
+
+      <div class="color-field">
+        <label for="envelopeColorInput">Цвет конверта</label>
+        <input id="envelopeColorInput" type="color">
+      </div>
+    </div>
+
+    <div class="color-grid">
+      <div class="color-field">
+        <label for="textColorInput">Цвет текста</label>
+        <input id="textColorInput" type="color">
+      </div>
+
+      <div class="font-field">
+        <label for="fontSelect">Шрифт</label>
+        <select id="fontSelect">
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="'Georgia', serif">Georgia</option>
+          <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+          <option value="'Courier New', monospace">Courier New</option>
+        </select>
+        <p id="fontPreviewText">*Пример шрифта</p>
+      </div>
+    </div>
+
+
+
+
+    <!--первая сторона-->
+<div id="frontSideEditor" class="side-editor">
+  <h3 class="side-title">Первая сторона</h3>
+
+  <div class="side-text-settings" id="frontTextSettings">
+    <label for="titleInput">Заголовок</label>
+    <input id="titleInput" type="text" placeholder="Например: Акция">
+
+    <label for="messageInput">Текст</label>
+    <textarea id="messageInput" placeholder="Введите текст"></textarea>
+
+    <label for="amountInput">Сумма</label>
+    <input id="amountInput" type="text" placeholder="Например: 5000 ₽">
+
+    <label for="addressInput">Адрес</label>
+    <input id="addressInput" type="text" placeholder="Например: ул. Примерная, 10">
+
+    <label for="contactsInput">Контактные данные</label>
+    <input id="contactsInput" type="text" placeholder="Например: +7 900 000-00-00 / site.ru">
+  </div>
+
+  <div class="side-image-settings" id="frontImageSettings">
+    <label for="logoInput">Логотип или изображение</label>
+    <input id="logoInput" type="file" accept=".png,.jpg,.jpeg,.webp,.svg,image/png,image/jpeg,image/webp,image/svg+xml">
+
+    <p id="logoHint" class="hidden">
+      Чтобы карта или сертификат выглядели гармоничнее, подбирайте цвет под фон логотипа или используйте формат изображения без фона.
+    </p>
+
+    <div id="imageOpacityWrap">
+      <label for="imageOpacity">Прозрачность изображения</label>
+      <div class="range-wrap">
+        <input id="imageOpacity" type="range" min="0" max="100" value="100">
+        <span id="imageOpacityValue">100%</span>
+      </div>
+    </div>
+
+    <div id="imageModeWrap">
+      <label for="imageMode">Режим изображения</label>
+      <select id="imageMode">
+        <option value="logo" selected>Логотип</option>
+        <option value="background">Фон</option>
+      </select>
+    </div>
+
+
+    <div id="logoPositionWrap">
+      <label for="logoPosition">Позиция логотипа</label>
+      <select id="logoPosition">
+        <option value="top-left">Слева сверху</option>
+        <option value="top-right" selected>Справа сверху</option>
+      </select>
+    </div>
+
+
+    <div id="imageSizeWrap">
+      <label for="imageSize">Размер изображения</label>
+      <select id="imageSize">
+        <option value="small">Маленький</option>
+        <option value="medium" selected>Средний</option>
+        <option value="large">Большой</option>
+      </select>
+    </div>
+
+  <div id="frontSideNotice" class="side-notice hidden">
+    У вас пока не заполнена сторона. Добавьте текст или изображение.
+  </div>
+
+
+
+
+<!--
+<div class="template-section">
+  <h2>Выберите шаблон</h2>
+  <p class="template-hint">
+    Шаблон задаёт только расположение текста, логотипа и декора.
+  </p>
+
+  <div class="template-list">
+
+    <button class="template-card" type="button" data-template="classic">
+      <div class="template-preview template-preview-classic">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Классик</span>
+    </button>
+
+    <button class="template-card" type="button" data-template="left">
+      <div class="template-preview template-preview-left">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Левый угол</span>
+    </button>
+
+    <button class="template-card" type="button" data-template="right">
+      <div class="template-preview template-preview-right">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Правый угол</span>
+    </button>
+
+  </div>
+
+  <p class="template-error hidden" id="templateError">
+    Сначала выберите шаблон
+  </p>
+</div>
+-->
+
+  </div>
+</div>
+
+
+
+
+    <!--вторая сторона-->
+<div id="backSideEditor" class="side-editor hidden">
+
+  <h3 class="side-title">Вторая сторона</h3>
+
+  <div class="side-text-settings" id="backTextSettings">
+    <label for="backTitleInput">Заголовок</label>
+    <input id="backTitleInput" type="text" placeholder="Например: Акция">
+
+    <label for="backMessageInput">Текст</label>
+    <textarea id="backMessageInput" placeholder="Введите текст"></textarea>
+
+    <label for="backAmountInput">Сумма</label>
+    <input id="backAmountInput" type="text" placeholder="Например: 5000 ₽">
+
+    <label for="backAddressInput">Адрес</label>
+    <input id="backAddressInput" type="text" placeholder="Например: ул. Примерная, 10">
+
+    <label for="backContactsInput">Контактные данные</label>
+    <input id="backContactsInput" type="text" placeholder="Например: +7 900 000-00-00 / site.ru">
+  </div>
+
+  <div class="side-image-settings" id="backImageSettings">
+    <label for="backLogoInput">Логотип или изображение</label>
+    <input id="backLogoInput" type="file" accept=".png,.jpg,.jpeg,.webp,.svg,image/png,image/jpeg,image/webp,image/svg+xml">
+
+    <p id="backLogoHint" class="hidden">
+      Чтобы карта или сертификат выглядели гармоничнее, подбирайте цвет под логотип или используйте логотип без фона.
+    </p>
+
+    <div id="backImageOpacityWrap">
+      <label for="backImageOpacity">Прозрачность изображения</label>
+      <div class="range-wrap">
+        <input id="backImageOpacity" type="range" min="0" max="100" value="100">
+        <span id="backImageOpacityValue">100%</span>
+      </div>
+    </div>
+
+    <div id="backImageModeWrap">
+      <label for="backImageMode">Режим изображения</label>
+      <select id="backImageMode">
+        <option value="logo" selected>Логотип</option>
+        <option value="background">Фон</option>
+      </select>
+    </div>
+
+
+
+    <div id="backLogoPositionWrap">
+      <label for="backLogoPosition">Позиция логотипа</label>
+      <select id="backLogoPosition">
+        <option value="top-left">Слева сверху</option>
+        <option value="top-right" selected>Справа сверху</option>
+      </select>
+    </div>
+
+
+    <div id="backImageSizeWrap">
+      <label for="backImageSize">Размер изображения</label>
+      <select id="backImageSize">
+        <option value="small">Маленький</option>
+        <option value="medium" selected>Средний</option>
+        <option value="large">Большой</option>
+      </select>
+    </div>
+
+    <div id="backSideNotice" class="side-notice hidden">
+      У вас пока не заполнена сторона. Добавьте текст или изображение.
+    </div>
+
+    <div id="backSideNotice2" class="side-notice hidden"></div>
+
+
+<!--
+<div class="template-section">
+  <h2>Выберите шаблон</h2>
+  <p class="template-hint">
+    Шаблон задаёт только расположение текста, логотипа и декора.
+  </p>
+
+  <div class="template-list">
+
+    <button class="template-card" type="button" data-template="classic">
+      <div class="template-preview template-preview-classic">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Классик</span>
+    </button>
+
+    <button class="template-card" type="button" data-template="left">
+      <div class="template-preview template-preview-left">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Левый угол</span>
+    </button>
+
+    <button class="template-card" type="button" data-template="right">
+      <div class="template-preview template-preview-right">
+        <div class="tp-logo"></div>
+        <div class="tp-line tp-line-title"></div>
+        <div class="tp-line tp-line-long"></div>
+        <div class="tp-line tp-line-short"></div>
+      </div>
+      <span>Правый угол</span>
+    </button>
+
+  </div>
+
+  <p class="template-error hidden" id="templateError">
+    Сначала выберите шаблон
+  </p>
+</div>
+-->
+
+
+
+  </div>
+</div>
+    <button id="continueBtn" type="button">Продолжить</button>
+</div>
+</section>
+
+
+
+
+
+
+<section id="accountScreen" class="screen hidden">
+  <div class="create-card account-card">
+    <button class="back-btn" id="backToCreateFromAccount">←</button>
+
+    <h1>Личный кабинет</h1>
+
+    <div class="account-panel">
+      <p id="accountEmail">Аккаунт: гость</p>
+      <p id="freeCardsInfo">Бесплатные карты: 0/3</p>
+      <p id="paidCardsInfo">Оплаченные карты: 0</p>
+    </div>
+
+    <button id="openPaymentBtn" type="button">
+      Купить карты
+    </button>
+  </div>
+</section>
+
+
+  <!--конверт-->
+  <section id="envelopeScreen" class="screen hidden">
+
+    <div class="preview-bg constructor-bg">
+      <div class="bg-grid"></div>
+    </div>
+
+  <div class="screen-card">
+    <p class="gift-text"></p> 
+
+    <div class="scene">
+      <div class="envelope" id="animatedEnvelope">
+        <div class="envelope-back"></div>
+        <div class="envelope-shadow"></div>
+        <div class="gift-sheet" id="giftSheet"></div>
+        <div class="envelope-front"></div>
+        <div class="envelope-flap"></div>
+      </div>
+    </div>
+
+    <button id="openBtn" type="button">Открыть</button>
+  </div>
+  </section>
+
+
+
+
+<section id="paymentScreen" class="screen hidden">
+
+  <div class="create-card payment-card">
+
+    <button class="back-btn" id="backToAccountFromPayment">←</button>
+
+    <h1>Покупка карт</h1>
+
+    <p class="payment-subtitle">
+      Бесплатный лимит закончился.
+      Выберите пакет карт.
+    </p>
+
+    <div class="payment-packs">
+
+      <button class="payment-pack" data-cards="1" data-price="10">
+        <strong>1 карта</strong>
+        <span>10 ₽</span>
+      </button>
+
+      <button class="payment-pack" data-cards="2" data-price="20">
+        <strong>2 карты</strong>
+        <span>20 ₽</span>
+      </button>
+
+      <button class="payment-pack" data-cards="5" data-price="50">
+        <strong>5 карт</strong>
+        <span>50 ₽</span>
+      </button>
+
+      <button class="payment-pack" data-cards="10" data-price="100">
+        <strong>10 карт</strong>
+        <span>100 ₽</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+  <!--финальная первая сторона-->
+  <section id="frontCardScreen" class="screen hidden">
+
+  <div class="preview-bg constructor-bg">
+    <div class="bg-grid"></div>
+  </div>
+
+  <div class="screen-card">
+    <div class="scene">
+
+    <div class="card-flip" id="cardFlip">
+      <div class="card-side card-front">
+        <div class="card" id="giftCard">
+          <div class="card-user-bg hidden" id="cardUserBg"></div>
+          <div class="card-overlay"></div>
+
+          <div class="card-logo-wrap logo-top-right hidden" id="cardLogoWrap">
+            <img id="cardLogo" alt="">
+          </div>
+
+          <div class="card-content">
+            <p id="resultType" class="card-type"></p>
+            <h2 class="title" id="resultTitle"></h2>
+            <p class="message" id="resultMessage"></p>
+
+            <div class="amount-wrap">
+              <p class="amount" id="resultAmount"></p>
+            </div>
+
+            <div class="extra-info">
+              <p class="address hidden" id="resultAddress"></p>
+              <p class="contacts hidden" id="resultContacts"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="result-actions">
+      <button id="frontBackBtn" type="button">Назад</button>
+      <button id="frontToggleSideBtn" type="button">Вторая сторона</button>
+        <button id="frontShareBtn" type="button">Поделиться</button>
+      <button id="frontDownloadBtn" type="button">Скачать</button>
+    </div>
+  </div>
+  </section>
+
+
+
+
+  <!--финальная вторая сторона-->
+  <section id="backCardScreen" class="screen hidden">
+
+  <div class="preview-bg constructor-bg">
+    <div class="bg-grid"></div>
+  </div>
+
+  <div class="screen-card">
+    <div class="scene">
+
+    <div class="card-flip" id="backCardFlip">
+      <div class="card-side card-front">
+        <div class="card" id="backGiftCard">
+          <div class="card-user-bg hidden" id="backCardUserBg"></div>
+          <div class="card-overlay"></div>
+
+          <div class="card-logo-wrap logo-top-right hidden" id="backCardLogoWrap">
+            <img id="backCardLogo" alt="">
+          </div>
+
+          <div class="card-content">
+            <p id="backResultType" class="card-type"></p>
+            <h2 class="title" id="backResultTitle"></h2>
+            <p class="message" id="backResultMessage"></p>
+
+            <div class="amount-wrap">
+              <p class="amount" id="backResultAmount"></p>
+            </div>
+
+            <div class="extra-info">
+              <p class="address hidden" id="backResultAddress"></p>
+              <p class="contacts hidden" id="backResultContacts"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="result-actions">
+      <button id="backBackBtn" type="button">Назад</button>
+      <button id="backToggleSideBtn" type="button">Первая сторона</button>
+      <button id="backShareBtn" type="button">Поделиться</button>
+      <button id="backDownloadBtn" type="button">Скачать</button>
+    </div>
+  </div>
+  </section>
+
+<div id="shareModal" class="share-modal hidden">
+  <div class="share-box">
+    <h3>Ссылка создана</h3>
+    <p>Можно скопировать ссылку или поделиться ей.</p>
+
+    <input id="shareLinkInput" type="text" readonly>
+
+    <div class="share-actions">
+      <button id="copyShareLinkBtn" type="button">Скопировать</button>
+      <button id="nativeShareBtn" type="button">Поделиться</button>
+    </div>
+
+    <button id="closeShareModalBtn" type="button" class="share-close">Закрыть</button>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>

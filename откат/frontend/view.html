@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вам подарок</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!--конверт-->
+  <section id="envelopeScreen" class="screen">
+
+    <div class="preview-bg constructor-bg">
+      <div class="bg-grid"></div>
+    </div>
+
+  <div class="screen-card">
+    <p class="gift-text"></p> 
+
+    <div class="scene">
+      <div class="envelope" id="animatedEnvelope">
+        <div class="envelope-back"></div>
+        <div class="envelope-shadow"></div>
+        <div class="gift-sheet" id="giftSheet"></div>
+        <div class="envelope-front"></div>
+        <div class="envelope-flap"></div>
+      </div>
+    </div>
+
+    <button id="openBtn">Открыть</button>
+  </div>
+  </section>
+
+
+
+
+  <!--финальная первая сторона-->
+  <section id="frontCardScreen" class="screen hidden">
+
+  <div class="preview-bg constructor-bg">
+    <div class="bg-grid"></div>
+  </div>
+
+  <div class="screen-card">
+    <div class="scene">
+
+    <div class="card-flip" id="cardFlip">
+      <div class="card-side card-front">
+        <div class="card" id="giftCard">
+          <div class="card-user-bg hidden" id="cardUserBg"></div>
+          <div class="card-overlay"></div>
+
+          <div class="card-logo-wrap logo-top-right hidden" id="cardLogoWrap">
+            <img id="cardLogo" alt="">
+          </div>
+
+          <div class="card-content">
+            <p id="resultType" class="card-type"></p>
+            <h2 class="title" id="resultTitle"></h2>
+            <p class="message" id="resultMessage"></p>
+
+            <div class="amount-wrap">
+              <p class="amount" id="resultAmount"></p>
+            </div>
+
+            <div class="extra-info">
+              <p class="address hidden" id="resultAddress"></p>
+              <p class="contacts hidden" id="resultContacts"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="result-actions">
+      <button id="frontBackBtn" type="button">Назад</button>
+      <button id="frontToggleSideBtn" type="button">Вторая сторона</button>
+    </div>
+  </div>
+  </section>
+
+
+
+
+  <!--финальная вторая сторона-->
+  <section id="backCardScreen" class="screen hidden">
+
+  <div class="preview-bg constructor-bg">
+    <div class="bg-grid"></div>
+  </div>
+
+  <div class="screen-card">
+    <div class="scene">
+
+    <div class="card-flip" id="backCardFlip">
+      <div class="card-side card-front">
+        <div class="card" id="backGiftCard">
+          <div class="card-user-bg hidden" id="backCardUserBg"></div>
+          <div class="card-overlay"></div>
+
+          <div class="card-logo-wrap logo-top-right hidden" id="backCardLogoWrap">
+            <img id="backCardLogo" alt="">
+          </div>
+
+          <div class="card-content">
+            <p id="backResultType" class="card-type"></p>
+            <h2 class="title" id="backResultTitle"></h2>
+            <p class="message" id="backResultMessage"></p>
+
+            <div class="amount-wrap">
+              <p class="amount" id="backResultAmount"></p>
+            </div>
+
+            <div class="extra-info">
+              <p class="address hidden" id="backResultAddress"></p>
+              <p class="contacts hidden" id="backResultContacts"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="result-actions">
+      <button id="backBackBtn" type="button">Назад</button>
+      <button id="backToggleSideBtn" type="button">Первая сторона</button>
+    </div>
+  </div>
+  </section>
+
+<script src="/view.js"></script>
+</body>
+</html>
